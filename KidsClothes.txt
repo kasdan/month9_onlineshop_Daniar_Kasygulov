@@ -1,2 +1,5 @@
 This is internet store which sells kids clothes.
 
+Entities needed for the online shop are:
+Users,Clothes-item,Picture,Description of the item of clothing, review about item of clothing,
+basket for clothes, order,
