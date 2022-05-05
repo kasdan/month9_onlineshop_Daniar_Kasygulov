@@ -2,4 +2,8 @@ This is internet store which sells kids clothes.
 
 Entities needed for the online shop are:
 Users,Clothes-item,Picture,Description of the item of clothing, review about item of clothing,
-basket for clothes, order,
+basket for clothes, order.
+
+This application will have REST backend and MVC front end with added functionality using
+JavaScript and ApacheFreeMarker.
+
