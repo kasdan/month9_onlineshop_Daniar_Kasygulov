@@ -20,6 +20,6 @@ public class Review {
     private String text;
 
     @ManyToOne
-    @Column(name="user")
+    @JoinColumn(name="user")
     private User user;
 }

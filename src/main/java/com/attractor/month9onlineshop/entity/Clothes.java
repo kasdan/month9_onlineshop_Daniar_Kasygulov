@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "clothes")
@@ -35,5 +35,10 @@ public class Clothes {
 
     @Column(name = "date_time")
     private LocalDateTime dateAdded;
+
+    @ManyToOne
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
+
 }
 
