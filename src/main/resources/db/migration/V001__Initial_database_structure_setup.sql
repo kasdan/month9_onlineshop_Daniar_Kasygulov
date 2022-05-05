@@ -24,12 +24,25 @@ DROP TABLE IF EXISTS `baskets`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `baskets` (
   `id` bigint NOT NULL AUTO_INCREMENT,
+  `quantity` int DEFAULT NULL,
+  `clothes_id` bigint DEFAULT NULL,
   `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `FKe5nodi51dngofi0plckhy49bt` (`clothes_id`),
   KEY `FK87s17cinc4wkx0taas5nh0s8h` (`user_id`),
-  CONSTRAINT `FK87s17cinc4wkx0taas5nh0s8h` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `FK87s17cinc4wkx0taas5nh0s8h` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `FKe5nodi51dngofi0plckhy49bt` FOREIGN KEY (`clothes_id`) REFERENCES `clothes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `baskets`
+--
+
+LOCK TABLES `baskets` WRITE;
+/*!40000 ALTER TABLE `baskets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `baskets` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `clothes`
@@ -45,12 +58,18 @@ CREATE TABLE `clothes` (
   `item_name` varchar(255) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `quantity` int DEFAULT NULL,
-  `basket_id` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKhuuj7f3n8284x886x83mcdcjo` (`basket_id`),
-  CONSTRAINT `FKhuuj7f3n8284x886x83mcdcjo` FOREIGN KEY (`basket_id`) REFERENCES `baskets` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clothes`
+--
+
+LOCK TABLES `clothes` WRITE;
+/*!40000 ALTER TABLE `clothes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `clothes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `orders`
@@ -72,6 +91,15 @@ CREATE TABLE `orders` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `photos`
 --
 
@@ -89,6 +117,15 @@ CREATE TABLE `photos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `photos`
+--
+
+LOCK TABLES `photos` WRITE;
+/*!40000 ALTER TABLE `photos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `photos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `reviews`
 --
 
@@ -98,12 +135,24 @@ DROP TABLE IF EXISTS `reviews`;
 CREATE TABLE `reviews` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `text` varchar(2000) DEFAULT NULL,
-  `user` bigint DEFAULT NULL,
+  `clothes_id` bigint DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK9khvd50i5lgylxx34852hixs7` (`user`),
-  CONSTRAINT `FK9khvd50i5lgylxx34852hixs7` FOREIGN KEY (`user`) REFERENCES `users` (`id`)
+  KEY `FKn8vnfjdrl75b7tnbe6uf4hgo0` (`clothes_id`),
+  KEY `FKcgy7qjc1r99dp117y9en6lxye` (`user_id`),
+  CONSTRAINT `FKcgy7qjc1r99dp117y9en6lxye` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `FKn8vnfjdrl75b7tnbe6uf4hgo0` FOREIGN KEY (`clothes_id`) REFERENCES `clothes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reviews`
+--
+
+LOCK TABLES `reviews` WRITE;
+/*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
@@ -121,6 +170,15 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -131,4 +189,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-05 18:27:17
+-- Dump completed on 2022-05-05 21:17:51

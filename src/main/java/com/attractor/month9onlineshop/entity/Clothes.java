@@ -36,9 +36,5 @@ public class Clothes {
     @Column(name = "date_time_added")
     private LocalDateTime dateAdded;
 
-    @ManyToOne
-    @JoinColumn(name = "basket_id")
-    private Basket basket;
-
 }
 

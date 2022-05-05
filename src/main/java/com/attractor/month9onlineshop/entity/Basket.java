@@ -21,6 +21,11 @@ public class Basket {
     @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany(mappedBy = "basket", orphanRemoval = true)
-    private Set<Clothes> clothes = new java.util.LinkedHashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "clothes_id")
+    private Clothes clothes;
+
+    @Column(name="quantity")
+    private int quantity;
+
 }
