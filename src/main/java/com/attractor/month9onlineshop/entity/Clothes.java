@@ -33,6 +33,9 @@ public class Clothes {
     @Column(name = "price")
     private double price;
 
+    @Column(name = "size")
+    private String size;
+
     @Column(name = "date_time_added")
     private LocalDateTime dateAdded;
 
