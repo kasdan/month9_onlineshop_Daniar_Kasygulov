@@ -20,6 +20,10 @@ public class Review {
     private String text;
 
     @ManyToOne
-    @JoinColumn(name="user")
+    @JoinColumn(name = "clothes_id")
+    private Clothes clothes;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
 }

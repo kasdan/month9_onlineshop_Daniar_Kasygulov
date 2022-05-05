@@ -33,7 +33,7 @@ public class Clothes {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "date_time")
+    @Column(name = "date_time_added")
     private LocalDateTime dateAdded;
 
     @ManyToOne

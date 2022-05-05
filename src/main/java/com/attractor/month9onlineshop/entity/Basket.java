@@ -3,6 +3,7 @@ package com.attractor.month9onlineshop.entity;
 import lombok.*;
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "baskets")
@@ -21,5 +22,5 @@ public class Basket {
     private User user;
 
     @OneToMany(mappedBy = "basket", orphanRemoval = true)
-    private List<Clothes> clothes = new java.util.ArrayList<>();
+    private Set<Clothes> clothes = new java.util.LinkedHashSet<>();
 }

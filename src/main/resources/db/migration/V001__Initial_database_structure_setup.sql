@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `clothes`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clothes` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `date_time` datetime(6) DEFAULT NULL,
+  `date_time_added` datetime(6) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `item_name` varchar(255) DEFAULT NULL,
   `price` double DEFAULT NULL,
