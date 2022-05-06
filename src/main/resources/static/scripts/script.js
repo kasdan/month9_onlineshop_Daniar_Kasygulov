@@ -193,7 +193,7 @@ function loginIncorrect() {
 
 function loginNormal(){
     h1element.style.color = "white";
-    h1element.innerHTML = 'Welcome to the Microgram!';
+    h1element.innerHTML = 'Welcome to the Kids store!';
     registerPage.hidden = false;
     document.location.reload()
 }
