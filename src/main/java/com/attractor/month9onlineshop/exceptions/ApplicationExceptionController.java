@@ -18,5 +18,7 @@ public class ApplicationExceptionController {
     }
 
     @ExceptionHandler(value = UserAlreadyExistsException.class)
-    public ResponseEntity<Object> exception(UserAlreadyExistsException e)
+    public ResponseEntity<Object> exception(UserAlreadyExistsException existsException){
+        return new ResponseEntity<>("User already exists",HttpStatus.FOUND);
+    }
 }

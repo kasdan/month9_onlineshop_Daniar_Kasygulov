@@ -5,6 +5,7 @@ import com.attractor.month9onlineshop.dto.LoginDTO;
 import com.attractor.month9onlineshop.dto.UserDTO;
 import com.attractor.month9onlineshop.dto.UserRegistrationDTO;
 import com.attractor.month9onlineshop.entity.User;
+import com.attractor.month9onlineshop.exceptions.UserAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserNotFoundException;
 import com.attractor.month9onlineshop.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +53,6 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/register")
     public String getRegistation(){
         return "register";
@@ -69,6 +69,10 @@ public class UserController {
             return "register";
         }
         else {
+            Optional<User> optionalUser = Optional.ofNullable(userService.getUserByUserName(userRegistrationDTO.getUsername()));
+            if(optionalUser.isPresent()){
+                throw new UserAlreadyExistsException();
+            }
             model.addAttribute("user", userService.addUser(userRegistrationDTO));
             return "registration";
         }
