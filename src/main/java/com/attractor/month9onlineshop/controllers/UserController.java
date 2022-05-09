@@ -5,6 +5,7 @@ import com.attractor.month9onlineshop.dto.LoginDTO;
 import com.attractor.month9onlineshop.dto.UserDTO;
 import com.attractor.month9onlineshop.dto.UserRegistrationDTO;
 import com.attractor.month9onlineshop.entity.User;
+import com.attractor.month9onlineshop.exceptions.UserNotFoundException;
 import com.attractor.month9onlineshop.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.buf.Utf8Decoder;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,8 +40,15 @@ public class UserController {
             //System.out.println(validationResult.getFieldErrors("username"));
             return "index";
       } else {
-           model.addAttribute("user", userService.getUserByUserName(loginDTO.getUsername()));
-            return "login";
+            Optional<User> userOptional = Optional.ofNullable(userService.getUserByUserName(loginDTO.getUsername()));
+            if(userOptional.isPresent()) {
+
+                model.addAttribute("user", userOptional.get());
+                return "login";
+            }else {
+                throw new UserNotFoundException();
+            }
+
         }
     }
 

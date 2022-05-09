@@ -19,7 +19,7 @@ public class UserRegistrationDTO {
 
     @NotEmpty(message = "must not be empty")
     @NotBlank
-    @Email
+    @Email(message = "must be email")
     private String email;
 
     @NotEmpty(message = "must not be empty")
