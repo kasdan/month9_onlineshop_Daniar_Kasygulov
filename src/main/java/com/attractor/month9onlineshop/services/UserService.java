@@ -37,7 +37,7 @@ public class UserService {
         var username = userRegistrationDTO.getUsername();
         var users = getAllUsers().stream().filter(e->e.getUserName().equalsIgnoreCase(username)).findFirst();
         if(users.isPresent()){
-            return "This user already exists";
+            return null;
         }
         var user = User.builder()
                 .userName(username)
@@ -46,7 +46,11 @@ public class UserService {
                 .password(userRegistrationDTO.getPassword())
                 .build();
         userRepository.save(user);
-        String message = "User "+ user.getUsername()+" has been created";
-        return message;
+        UserDTO  userDTO = UserDTO.builder()
+                .username(user.getUserName())
+                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .build();
+        return userDTO;
     }
 }
