@@ -26,21 +26,9 @@ public class UserController {
     public String indexPage() {
         return "index";
     }
-//@GetMapping("index")
-//public String indexReturn(){
-//
-//}
-    //    @GetMapping("/index")
-//    public String pageRegisterCustomer(Model model) {
-//        if (!model.containsAttribute("form")) {
-//            model.addAttribute("form", new LoginDTO());
-//        }
-//        return "index";
-//    }
+
     @PostMapping("/login")
     public String getUserName(@Valid LoginDTO loginDTO, BindingResult validationResult, Model model) {
-        // добавим в модель-представление нашу форму с данными
-
         if (validationResult.hasFieldErrors()) {
             model.addAttribute("errors", validationResult.getFieldErrors());
             return "index";
@@ -57,11 +45,15 @@ public class UserController {
     }
 
     @PostMapping(value = "/registration")
-    public String getRegistrationForm(@Valid UserRegistrationDTO userRegistrationDTO, Model model){
-        System.out.println(userRegistrationDTO.getUsername());
-        System.out.println(userRegistrationDTO.getEmail());
-        model.addAttribute("user",userService.addUser(userRegistrationDTO));
-        return "registration";
+    public String getRegistrationForm(@Valid UserRegistrationDTO userRegistrationDTO,BindingResult validationResult, Model model){
+        if (validationResult.hasFieldErrors()) {
+            model.addAttribute("errors",validationResult.getFieldErrors());
+            return "register";
+        }
+        else {
+            model.addAttribute("user", userService.addUser(userRegistrationDTO));
+            return "registration";
+        }
 
     }
 }
