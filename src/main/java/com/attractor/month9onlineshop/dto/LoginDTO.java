@@ -17,9 +17,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class LoginDTO {
 
-    @NotEmpty
+    @NotEmpty(message = "must not be empty")
     private String username;
-    @NotEmpty
+    @NotEmpty(message = "must not be empty")
     private String password;
 
 
