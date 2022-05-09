@@ -13,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +27,9 @@ public class UserService {
         user = userRepository.findUserByUserName(username);
         return user;
     }
-
+    public Optional<User> findUserByEmail(String email){
+        return userRepository.findUserByEmail(email);
+    }
     public List<User> getAllUsers(){
         List<User> users = new ArrayList<>();
         userRepository.findAll().forEach(users::add);

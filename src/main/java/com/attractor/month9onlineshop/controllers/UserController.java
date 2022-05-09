@@ -6,6 +6,7 @@ import com.attractor.month9onlineshop.dto.UserDTO;
 import com.attractor.month9onlineshop.dto.UserRegistrationDTO;
 import com.attractor.month9onlineshop.entity.User;
 import com.attractor.month9onlineshop.exceptions.UserAlreadyExistsException;
+import com.attractor.month9onlineshop.exceptions.UserEmailAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserNotFoundException;
 import com.attractor.month9onlineshop.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -70,8 +71,12 @@ public class UserController {
         }
         else {
             Optional<User> optionalUser = Optional.ofNullable(userService.getUserByUserName(userRegistrationDTO.getUsername()));
+            Optional<User> optionalUserByEmail = userService.findUserByEmail(userRegistrationDTO.getEmail());
             if(optionalUser.isPresent()){
                 throw new UserAlreadyExistsException();
+            }
+            else if (optionalUserByEmail.isPresent()){
+                throw new UserEmailAlreadyExistsException();
             }
             model.addAttribute("user", userService.addUser(userRegistrationDTO));
             return "registration";
