@@ -1,21 +1,33 @@
 package com.attractor.month9onlineshop.controllers;
 
 
+import com.attractor.month9onlineshop.dto.LoginDTO;
 import com.attractor.month9onlineshop.entity.User;
 import com.attractor.month9onlineshop.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+import javax.validation.Valid;
+
+@Controller
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/get_username")
-    public User sendUserName(@RequestParam(name = "username") String username) {
-        return userService.getUserByUserName(username);
+    @GetMapping
+    public String indexPage(){
+        return "index";
+    }
+
+    @GetMapping("/login")
+    public String sendUserName(@Valid @RequestParam String username,String password,
+                                Model model) {
+        System.out.println(username);
+        System.out.println(password);
+        model.addAttribute("user",userService.getUserByUserName(username));
+        return "login";
     }
 }
