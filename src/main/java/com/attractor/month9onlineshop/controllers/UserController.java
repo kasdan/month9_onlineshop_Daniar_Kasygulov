@@ -5,6 +5,7 @@ import com.attractor.month9onlineshop.dto.LoginDTO;
 import com.attractor.month9onlineshop.dto.UserDTO;
 import com.attractor.month9onlineshop.dto.UserRegistrationDTO;
 import com.attractor.month9onlineshop.entity.User;
+import com.attractor.month9onlineshop.exceptions.ApplicationExceptionController;
 import com.attractor.month9onlineshop.exceptions.UserAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserEmailAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserNotFoundException;
@@ -55,7 +56,7 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String getRegistation(){
+    public String getRegistration(){
         return "register";
     }
 

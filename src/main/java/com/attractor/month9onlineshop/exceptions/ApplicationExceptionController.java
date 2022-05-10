@@ -13,16 +13,15 @@ import static java.util.stream.Collectors.toList;
 @ControllerAdvice
 public class ApplicationExceptionController {
     @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<Object> exception(UserNotFoundException exception) {
+    public ResponseEntity<Object> exceptionUserNotFound(UserNotFoundException exception) {
         return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
     }
-
     @ExceptionHandler(value = UserAlreadyExistsException.class)
-    public ResponseEntity<Object> exception(UserAlreadyExistsException existsException){
+    public ResponseEntity<Object> exceptionUserExists(UserAlreadyExistsException existsException){
         return new ResponseEntity<>("User already exists",HttpStatus.FOUND);
     }
     @ExceptionHandler(value = UserEmailAlreadyExistsException.class)
-    public ResponseEntity<Object> exception(UserEmailAlreadyExistsException exception){
+    public ResponseEntity<Object> exceptionUserEmailExists(UserEmailAlreadyExistsException exception){
         return new ResponseEntity<>("User email already exists",HttpStatus.FOUND);
     }
 }
