@@ -13,10 +13,13 @@
       <main class="flex flex-wrap align-evenly">
         <#list clothes as cloth>
        <#--            <img src="/images/${cloth.photo}.jpg">-->
-            <p>${cloth.itemName}</p>
+            <h3>${cloth.itemName}</h3>
             <#list cloth.photos as photo>
-                <img src="/images/${photo.name}.jpg">
+                <img src="images/${photo.name}.jpg" style="width: 200px;height: 200px">
             </#list>
+            <p>Description: ${cloth.description}</p>
+            <p>Price: ${cloth.price}</p>
+
 <#--            <p>${cloth.photos.get(0)}</p>-->
 <#--            <input name="clothesId" type="hidden" value="${cloth.id}">-->
 
