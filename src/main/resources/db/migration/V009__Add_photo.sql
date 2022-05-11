@@ -1,1 +1,0 @@
-INSERT INTO `month9_database`.`photos` (`name`, `clothes_id`) VALUES ('greydressBehind', '1');

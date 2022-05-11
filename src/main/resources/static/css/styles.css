@@ -1,67 +1,42 @@
-
-
-#heart-on-image {
-    position: absolute;
-    top: 150px;
-    left: 220px;
-}
-
-#heart-on-image-full {
-    position: absolute;
-    top: 150px;
-    left: 220px;
-}
-
-#bookmark {
-    position: absolute;
-    right: 20px;
-}
-
-.splash {
-    position: fixed;
-    padding-top: 200px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: black;
-    z-index: 200;
-    color: white;
-    text-align: center;
-    /* line-height: 90vh; */
-}
-.register {
-    position: fixed;
-    padding-top: 200px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: black;
-    z-index: 200;
-    color: white;
-    text-align: center;
-    /* line-height: 90vh; */
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-.fade-in {
-    opacity: 0;
-    animation: fadeIn 3s ease-in forwards;
-}
-form{
+.container {
+    max-width: 1280px;
+    width: 1280px;
     margin: 0 auto;
 }
 
-.card {
-    margin: 0 auto; /* Added */
-    float: none; /* Added */
+.flex {
+    display: flex;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-column {
+    flex-flow: column;
+}
+
+.flex-v-center {
+    align-items: center;
+}
+
+.box {
+    flex-basis: 256px;
+    height: 530px;
+    padding: 10px 10px 10px 10px;
+}
+
+img {
+    width:100%;
+    height:100%;
+}
+
+.box-128 {
+    flex-basis: 128px;
+    height: 128px;
 }
 
 
-
+.label-input-text {
+    flex-basis: 200px;
+}
