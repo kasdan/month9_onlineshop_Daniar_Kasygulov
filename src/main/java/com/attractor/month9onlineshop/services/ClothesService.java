@@ -20,4 +20,12 @@ public class ClothesService {
         return  clothesRepository.findAll(pageable).map(ClothesDTO::from);
     }
 
+    public Page<ClothesDTO> getListOfClothesByName(Pageable pageable,String name){
+        return clothesRepository.findClothesByItemNameContaining(pageable,name).map(ClothesDTO::from);
+    }
+
+    public Page<ClothesDTO> getListOfClothesByDescription(Pageable pageable,String description){
+        return clothesRepository.findClothesByDescriptionContaining(pageable,description).map(ClothesDTO::from);
+    }
+
 }

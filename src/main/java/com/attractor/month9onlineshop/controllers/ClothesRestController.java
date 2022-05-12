@@ -5,6 +5,7 @@ import com.attractor.month9onlineshop.services.ClothesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +21,10 @@ public class ClothesRestController {
     @GetMapping("/clothes")
     public List<ClothesDTO> getAllClothes(Pageable pageable){
         return clothesService.getListOfClothes(pageable).getContent();
+    }
+
+    @GetMapping("/clothes/name/{name}")
+    public List<ClothesDTO> getClothesByName(@PathVariable String name,Pageable pageable){
+        return clothesService.getListOfClothesByName(pageable,name).getContent();
     }
 }

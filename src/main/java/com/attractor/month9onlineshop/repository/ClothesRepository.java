@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClothesRepository extends JpaRepository<Clothes,Long> {
-    Page<Clothes> findPlaceByItemNameContaining(Pageable pageable, String name);
+    Page<Clothes> findClothesByItemNameContaining(Pageable pageable, String name);
+    Page<Clothes> findClothesByDescriptionContaining(Pageable pageable,String description);
 }
