@@ -4,7 +4,6 @@ import com.attractor.month9onlineshop.services.ClothesService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/clothes")
+@RequestMapping
 @AllArgsConstructor
 public class FrontendController {
 
@@ -46,7 +45,7 @@ public class FrontendController {
 
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
 
-        return "clothes";
+        return "index";
     }
 //    @GetMapping("/name/{name}")
 //    public String getSearchedPlaces(@PathVariable String name, Model model, Pageable pageable, HttpServletRequest uriBuilder){

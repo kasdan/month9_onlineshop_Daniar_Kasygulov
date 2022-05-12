@@ -1,30 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<#import "partials/main.ftlh" as main/>
 
-<head>
-    <title>Login page</title>
-</head>
+<@main.renderWith>
+    <h1>Clothes</h1>
+    <div class="flex flex-wrap" id="itemList">
+        <#list clothes as cloth>
+            <div class="flex flex-column box flex-v-center">
+                <h3>${cloth.itemName}</h3>
+                <img src="/images/${cloth.photo}.jpg">
+                <p>Description: ${cloth.description}</p>
+                <p>Price: ${cloth.price}</p>
+            </div>
+        </#list>
 
-<body>
-<h2>Please login into Kids' store.</h2>
-<form action="/login" method="post">
-    <input type="text" placeholder="Enter username" name="username" value="<#if form??>${form.username!''}</#if>">
-    <span style="color: red"><#if errorUsername??> ${errorUsername.defaultMessage!'-- no message --'}</#if></span>
-    <br>
-    <input type="password" placeholder="Enter password" name="password" value="<#if form??>${form.password!''}</#if>">
-    <span style="color: red"><#if errorPassword??> ${errorPassword.defaultMessage!'-- no message --'}</#if></span>
-    <br>
-    <input type="submit" value="Enter">
-</form>
-<form action="/register">
-<input type="submit" value="Register" >
-</form>
+    </div>
 
-<#--<#if errors??>-->
-<#--    <#list errors as fieldError>-->
-<#--        <p>${fieldError.field}- ${fieldError.defaultMessage!'-- no message --'}</p>-->
-<#--    </#list>-->
-<#--</#if>-->
-</body>
+    <div>
+        <#if hasPrev>
+            <a id="loadPrev" href="${prevPageLink!''}">&lt;&lt;&lt;Previous page</a>
+        <#else>
+            <span id="loadPrev">Previous page</span>
+        </#if>
 
-</html>
+        <#if hasNext>
+            <a id="loadNext" href="${nextPageLink!''}" data-default-page-size="${defaultPageSize!5}">Next page&gt;&gt;&gt;</a>
+        <#else>
+            <span>Next page</span>
+        </#if>
+    </div>
+</@main.renderWith>

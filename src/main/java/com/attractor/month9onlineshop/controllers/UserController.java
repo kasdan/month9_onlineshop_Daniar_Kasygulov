@@ -2,22 +2,17 @@ package com.attractor.month9onlineshop.controllers;
 
 
 import com.attractor.month9onlineshop.dto.LoginDTO;
-import com.attractor.month9onlineshop.dto.UserDTO;
 import com.attractor.month9onlineshop.dto.UserRegistrationDTO;
 import com.attractor.month9onlineshop.entity.User;
-import com.attractor.month9onlineshop.exceptions.ApplicationExceptionController;
 import com.attractor.month9onlineshop.exceptions.UserAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserEmailAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserNotFoundException;
 import com.attractor.month9onlineshop.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.buf.Utf8Decoder;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -27,9 +22,9 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/loginPage")
     public String indexPage() {
-        return "index";
+        return "loginPage";
     }
 
     @PostMapping("/login")
@@ -41,7 +36,7 @@ public class UserController {
             model.addAttribute("errorPassword",validationResult.getFieldError("password"));
             model.addAttribute("form",loginDTO);
             //System.out.println(validationResult.getFieldErrors("username"));
-            return "index";
+            return "loginPage";
       } else {
             Optional<User> userOptional = Optional.ofNullable(userService.getUserByUserName(loginDTO.getUsername()));
             if(userOptional.isPresent()) {
