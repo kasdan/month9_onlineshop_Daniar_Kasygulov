@@ -47,16 +47,21 @@ public class FrontendController {
 
         return "index";
     }
-//    @GetMapping("/name/{name}")
-//    public String getSearchedPlaces(@PathVariable String name, Model model, Pageable pageable, HttpServletRequest uriBuilder){
-//        var places = clothesService.getPlacesByName(pageable,name);
-//        var uri = uriBuilder.getRequestURI();
-//        if(places.isEmpty()){
-//            model.addAttribute("noInfo","Cannot find any venue");
-//        }
-//        constructPageable(places,propertiesService.getDefaultPageSize(),model,uri);
-//        return "index";
-//    }
+
+    @GetMapping("/advancedSearch")
+    public String advancedSearch(Model model,Pageable pageable,HttpServletRequest uriBuilder){
+        return "advancedSearch";
+    }
+    @GetMapping("/name/{name}")
+    public String getSearchedPlaces(@PathVariable String name, Model model, Pageable pageable, HttpServletRequest uriBuilder){
+        var places = clothesService.getListOfClothesByName(pageable,name);
+        var uri = uriBuilder.getRequestURI();
+        if(places.isEmpty()){
+            model.addAttribute("noInfo","Cannot find any clothes");
+        }
+        constructPageable(places,propertiesService.getDefaultPageSize(),model,uri);
+        return "advancedSearch";
+    }
 //
 //    @GetMapping("/places/{id:\\d+?}")
 //    public String placePage(@PathVariable int id, Model model, Pageable pageable, HttpServletRequest uriBuilder) {
