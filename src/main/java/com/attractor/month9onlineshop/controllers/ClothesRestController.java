@@ -1,0 +1,24 @@
+package com.attractor.month9onlineshop.controllers;
+
+import com.attractor.month9onlineshop.dto.ClothesDTO;
+import com.attractor.month9onlineshop.services.ClothesService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+
+@RestController
+@RequestMapping("/api")
+@RequiredArgsConstructor
+public class ClothesRestController {
+    private final ClothesService clothesService;
+
+    @GetMapping("/clothes")
+    public List<ClothesDTO> getAllClothes(Pageable pageable){
+        return clothesService.getListOfClothes(pageable).getContent();
+    }
+}
