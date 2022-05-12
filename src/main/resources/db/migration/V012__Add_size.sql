@@ -1,0 +1,9 @@
+UPDATE `month9_database`.`clothes` SET `size` = '2 year' WHERE (`id` = '4');
+UPDATE `month9_database`.`clothes` SET `size` = '2 year' WHERE (`id` = '5');
+UPDATE `month9_database`.`clothes` SET `size` = '2 year' WHERE (`id` = '6');
+UPDATE `month9_database`.`clothes` SET `size` = '2 year' WHERE (`id` = '7');
+UPDATE `month9_database`.`clothes` SET `size` = '3 year' WHERE (`id` = '8');
+UPDATE `month9_database`.`clothes` SET `size` = '3 year' WHERE (`id` = '9');
+UPDATE `month9_database`.`clothes` SET `size` = '3 year' WHERE (`id` = '10');
+UPDATE `month9_database`.`clothes` SET `size` = '3 year' WHERE (`id` = '11');
+UPDATE `month9_database`.`clothes` SET `size` = '1 year' WHERE (`id` = '12');

@@ -28,4 +28,8 @@ public class ClothesService {
         return clothesRepository.findClothesByDescriptionContaining(pageable,description).map(ClothesDTO::from);
     }
 
+    public Page<ClothesDTO> getListOfClothesBySize(Pageable pageable,String size){
+        return clothesRepository.findClothesBySizeContains(pageable,size).map(ClothesDTO::from);
+    }
+
 }

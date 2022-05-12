@@ -27,4 +27,14 @@ public class ClothesRestController {
     public List<ClothesDTO> getClothesByName(@PathVariable String name,Pageable pageable){
         return clothesService.getListOfClothesByName(pageable,name).getContent();
     }
-}
+
+    @GetMapping("/clothes/description/{description}")
+    public List<ClothesDTO> getClothesByDescription(@PathVariable String description,Pageable pageable){
+        return clothesService.getListOfClothesByDescription(pageable,description).getContent();
+    }
+
+    @GetMapping("clothes/size/{size}")
+    public List<ClothesDTO> getClothesBySize(@PathVariable String size,Pageable pageable){
+        return clothesService.getListOfClothesBySize(pageable,size).getContent();
+    }
+ }
