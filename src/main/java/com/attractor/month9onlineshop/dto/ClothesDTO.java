@@ -26,6 +26,7 @@ public class ClothesDTO {
                 .photo(clothes.getPhotos().get(0).getName())
                 .price(clothes.getPrice())
                 .size(clothes.getSize())
+                .quantity(clothes.getQuantity())
                 .build();
     }
 }

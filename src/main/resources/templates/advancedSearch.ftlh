@@ -3,12 +3,13 @@
 <@main.renderWith>
     <h1>Advanced search</h1>
     <div name="price_range">
-        <h3>Please enter the price range</h3>
+        <h4>Please enter the price range</h4>
         <form id="price_range">
         <input type="number" id="min" min = "50" max="400" value=""> - <input type="number" id="max" min = "450" max="6000" value="">
         <input type="button" value="Submit">
         </form>
     </div>
+    <h4>Please enter the name of item.</h4>
     <input type="text" value="" id="input" placeholder="Please enter item name">
     <button type="button" id="button">Submit</button>
     <span style="color: red"><#if noInfo??>${noInfo!''}</#if></span>

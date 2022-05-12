@@ -4,10 +4,7 @@ import com.attractor.month9onlineshop.dto.ClothesDTO;
 import com.attractor.month9onlineshop.services.ClothesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,5 +33,10 @@ public class ClothesRestController {
     @GetMapping("clothes/size/{size}")
     public List<ClothesDTO> getClothesBySize(@PathVariable String size,Pageable pageable){
         return clothesService.getListOfClothesBySize(pageable,size).getContent();
+    }
+
+    @GetMapping("/clothes/price")
+    public List<ClothesDTO> getClothesByPriceBetween(@RequestParam Integer min,@RequestParam Integer max,Pageable pageable){
+        return clothesService.getListOfClothesByPriceBetween(min.doubleValue(), max.doubleValue(), pageable).getContent();
     }
  }

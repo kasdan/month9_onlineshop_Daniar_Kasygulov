@@ -54,12 +54,12 @@ public class FrontendController {
     }
     @GetMapping("/name/{name}")
     public String getSearchedPlaces(@PathVariable String name, Model model, Pageable pageable, HttpServletRequest uriBuilder){
-        var places = clothesService.getListOfClothesByName(pageable,name);
+        var clothes = clothesService.getListOfClothesByName(pageable,name);
         var uri = uriBuilder.getRequestURI();
-        if(places.isEmpty()){
+        if(clothes.isEmpty()){
             model.addAttribute("noInfo","Cannot find any clothes");
         }
-        constructPageable(places,propertiesService.getDefaultPageSize(),model,uri);
+        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
         return "advancedSearch";
     }
 //

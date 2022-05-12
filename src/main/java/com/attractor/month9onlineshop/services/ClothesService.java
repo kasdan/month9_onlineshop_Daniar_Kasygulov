@@ -32,4 +32,8 @@ public class ClothesService {
         return clothesRepository.findClothesBySizeContains(pageable,size).map(ClothesDTO::from);
     }
 
+    public Page<ClothesDTO> getListOfClothesByPriceBetween(Double min,Double max,Pageable pageable){
+        return clothesRepository.findClothesByPriceBetween(min,max,pageable).map(ClothesDTO::from);
+    }
+
 }

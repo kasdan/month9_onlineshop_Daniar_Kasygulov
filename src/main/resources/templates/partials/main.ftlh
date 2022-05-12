@@ -26,7 +26,7 @@
                 });
             });
         </script>
-        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="/css/styles.css">
         <#list styles as styleSource>
             <link rel="stylesheet" href="${styleSource}">
         </#list>
