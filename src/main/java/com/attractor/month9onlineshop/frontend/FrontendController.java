@@ -83,6 +83,16 @@ public class FrontendController {
         constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
         return "advancedSearch";
     }
+    @GetMapping("/price")
+        public String getSearchedClothesByPriceRange(@RequestParam Integer min, Integer max,Model model,Pageable pageable,HttpServletRequest uriBuilder){
+        var clothes = clothesService.getListOfClothesByPriceBetween(min.doubleValue(), max.doubleValue(),pageable);
+            var uri = uriBuilder.getRequestURI();
+            if(clothes.isEmpty()){
+                model.addAttribute("noInfo","Cannot find any clothes");
+            }
+            constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
+            return "advancedSearch";
+        }
 //
 //    @GetMapping("/places/{id:\\d+?}")
 //    public String placePage(@PathVariable int id, Model model, Pageable pageable, HttpServletRequest uriBuilder) {

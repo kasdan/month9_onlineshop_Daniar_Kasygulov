@@ -15,13 +15,25 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
+                $('#price').click(function(e) {
+                    var inputvalueMin = $("#min").val();
+                    var inputvalueMax = $("#max").val();
+                    if(inputvalueMin!=="" && inputvalueMax!=="") {
+                        console.log(inputvalue);
+                        window.location.replace("http://localhost:8080/price/?min=" + inputvalueMin +"&max="+inputvalueMax);
+                    }else {
+                        window.location.replace("http://localhost:8080/advancedSearch");
+                    }
+                });
+            });
+            $(document).ready(function(){
                 $('#name').click(function(e) {
                     var inputvalue = $("#inputName").val();
                     if(inputvalue!=="") {
                         console.log(inputvalue);
                         window.location.replace("http://localhost:8080/name/" + inputvalue);
                     }else {
-                        window.location.replace("http://localhost:8080");
+                        window.location.replace("http://localhost:8080/advancedSearch");
                     }
                 });
             });
@@ -32,7 +44,7 @@
                         console.log(inputvalue);
                         window.location.replace("http://localhost:8080/description/" + inputvalue);
                     }else {
-                        window.location.replace("http://localhost:8080");
+                        window.location.replace("http://localhost:8080/advancedSearch");
                     }
                 });
             }); $(document).ready(function(){
@@ -42,7 +54,7 @@
                         console.log(inputvalue);
                         window.location.replace("http://localhost:8080/size/" + inputvalue);
                     }else {
-                        window.location.replace("http://localhost:8080");
+                        window.location.replace("http://localhost:8080/advancedSearch");
                     }
                 });
             });
