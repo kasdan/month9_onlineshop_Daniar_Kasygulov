@@ -15,11 +15,32 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                $('#button').click(function(e) {
-                    var inputvalue = $("#input").val();
+                $('#name').click(function(e) {
+                    var inputvalue = $("#inputName").val();
                     if(inputvalue!=="") {
                         console.log(inputvalue);
                         window.location.replace("http://localhost:8080/name/" + inputvalue);
+                    }else {
+                        window.location.replace("http://localhost:8080");
+                    }
+                });
+            });
+            $(document).ready(function(){
+                $('#description').click(function(e) {
+                    var inputvalue = $("#inputDescription").val();
+                    if(inputvalue!=="") {
+                        console.log(inputvalue);
+                        window.location.replace("http://localhost:8080/description/" + inputvalue);
+                    }else {
+                        window.location.replace("http://localhost:8080");
+                    }
+                });
+            }); $(document).ready(function(){
+                $('#size').click(function(e) {
+                    var inputvalue = $("#inputSize").val();
+                    if(inputvalue!=="") {
+                        console.log(inputvalue);
+                        window.location.replace("http://localhost:8080/size/" + inputvalue);
                     }else {
                         window.location.replace("http://localhost:8080");
                     }

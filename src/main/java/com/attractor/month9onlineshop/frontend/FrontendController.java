@@ -53,8 +53,29 @@ public class FrontendController {
         return "advancedSearch";
     }
     @GetMapping("/name/{name}")
-    public String getSearchedPlaces(@PathVariable String name, Model model, Pageable pageable, HttpServletRequest uriBuilder){
+    public String getSearchedClothesByName(@PathVariable String name, Model model, Pageable pageable, HttpServletRequest uriBuilder){
         var clothes = clothesService.getListOfClothesByName(pageable,name);
+        var uri = uriBuilder.getRequestURI();
+        if(clothes.isEmpty()){
+            model.addAttribute("noInfo","Cannot find any clothes");
+        }
+        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
+        return "advancedSearch";
+    }
+    @GetMapping("/description/{description}")
+    public String getSearchedClothesByDescription(@PathVariable String description, Model model, Pageable pageable, HttpServletRequest uriBuilder){
+        var clothes = clothesService.getListOfClothesByDescription(pageable,description);
+        var uri = uriBuilder.getRequestURI();
+        if(clothes.isEmpty()){
+            model.addAttribute("noInfo","Cannot find any clothes");
+        }
+        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
+        return "advancedSearch";
+    }
+
+    @GetMapping("/size/{size}")
+    public String getSearchedClothesBySize(@PathVariable String size, Model model, Pageable pageable, HttpServletRequest uriBuilder){
+        var clothes = clothesService.getListOfClothesBySize(pageable,size);
         var uri = uriBuilder.getRequestURI();
         if(clothes.isEmpty()){
             model.addAttribute("noInfo","Cannot find any clothes");

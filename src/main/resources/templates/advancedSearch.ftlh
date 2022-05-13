@@ -10,8 +10,14 @@
         </form>
     </div>
     <h4>Please enter the name of item.</h4>
-    <input type="text" value="" id="input" placeholder="Please enter item name">
-    <button type="button" id="button">Submit</button>
+    <input type="text" value="" id="inputName" placeholder="Please enter item name">
+    <button type="button" id="name">Submit</button>
+    <h4>Please enter the description of item.</h4>
+    <input type="text" value="" id="inputDescription" placeholder="Please enter item description">
+    <button type="button" id="description">Submit</button>
+    <h4>Please enter the size</h4>
+    <input type="text" value="" id="inputSize" placeholder="Please enter item size">
+    <button type="button" id="size">Submit</button>
     <span style="color: red"><#if noInfo??>${noInfo!''}</#if></span>
     <div class="flex flex-wrap" id="itemList">
         <#if clothes??>
@@ -19,8 +25,10 @@
                 <div class="flex flex-column box flex-v-center">
                     <h3>${cloth.itemName}</h3>
                     <img src="/images/${cloth.photo}.jpg">
-                    <p>Description: ${cloth.description}</p>
-                    <p>Price: ${cloth.price}</p>
+                    <p>Description: ${cloth.description} <br>
+                        Size: ${cloth.size} <br>
+                        Price: ${cloth.price}
+                    </p>
                 </div>
             </#list>
         </#if>
