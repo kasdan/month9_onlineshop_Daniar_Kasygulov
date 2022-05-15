@@ -2,11 +2,11 @@
 
 <@main.renderWith>
     <h1>Advanced search</h1>
-    <div name="price_range">
+
         <h4>Please enter the price range</h4>
-        <input type="number" id="min" min = "50" max="400" value=""> - <input type="number" id="max" min = "450" max="6000" value="">
+        <input type="number" id="min" value=0> - <input type="number" id="max"  value=0>
         <button type="button" id="price">Submit</button>
-    </div>
+
     <h4>Please enter the name of item.</h4>
     <input type="text" value="" id="inputName" placeholder="Please enter item name">
     <button type="button" id="name">Submit</button>

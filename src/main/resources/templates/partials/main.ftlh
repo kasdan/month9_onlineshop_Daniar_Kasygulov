@@ -18,12 +18,26 @@
                 $('#price').click(function(e) {
                     var inputvalueMin = $("#min").val();
                     var inputvalueMax = $("#max").val();
-                    if(inputvalueMin!=="" && inputvalueMax!=="") {
-                        console.log(inputvalue);
-                        window.location.replace("http://localhost:8080/price/?min=" + inputvalueMin +"&max="+inputvalueMax);
+                    let data =
+                        {
+                            "min":inputvalueMin,
+                            "max":inputvalueMax
+                        }
+                    if(inputvalueMin!==0 && inputvalueMax!==0) {
+                        fetch("http://localhost:8080/advancedSearch", {
+                            method: 'post',
+                            cache: 'no-cache',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        }).then(
+                            fetch("http://localhost:8080/advancedSearch")
+                        );
+
                     }else {
-                        window.location.replace("http://localhost:8080/advancedSearch");
-                    }
+                       // window.location.replace("http://localhost:8080/advancedSearch");
+                   }
                 });
             });
             $(document).ready(function(){

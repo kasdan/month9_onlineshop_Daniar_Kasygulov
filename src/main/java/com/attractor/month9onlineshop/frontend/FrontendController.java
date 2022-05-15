@@ -1,7 +1,12 @@
 package com.attractor.month9onlineshop.frontend;
 
+import com.attractor.month9onlineshop.dto.ClothesDTO;
+import com.attractor.month9onlineshop.dto.MaxMinModel;
 import com.attractor.month9onlineshop.services.ClothesService;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -12,11 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class FrontendController {
-
+    private static String min;
+    private static String max;
     private final ClothesService clothesService;
-
     private final PropertiesService propertiesService;
 
     private static <T> void constructPageable(Page<T> list, int pageSize, Model model, String uri) {
@@ -42,16 +47,20 @@ public class FrontendController {
     public String index(Model model, Pageable pageable, HttpServletRequest uriBuilder) {
         var clothes = clothesService.getListOfClothes(pageable);
         var uri = uriBuilder.getRequestURI();
-
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
-
         return "index";
     }
 
     @GetMapping("/advancedSearch")
     public String advancedSearch(Model model,Pageable pageable,HttpServletRequest uriBuilder){
+
+            var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble("400"), Double.parseDouble("500"), pageable);
+            var uri = uriBuilder.getRequestURI();
+            constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
+
         return "advancedSearch";
     }
+
     @GetMapping("/name/{name}")
     public String getSearchedClothesByName(@PathVariable String name, Model model, Pageable pageable, HttpServletRequest uriBuilder){
         var clothes = clothesService.getListOfClothesByName(pageable,name);
@@ -83,16 +92,38 @@ public class FrontendController {
         constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
         return "advancedSearch";
     }
-    @GetMapping("/price")
-        public String getSearchedClothesByPriceRange(@RequestParam Integer min, Integer max,Model model,Pageable pageable,HttpServletRequest uriBuilder){
-        var clothes = clothesService.getListOfClothesByPriceBetween(min.doubleValue(), max.doubleValue(),pageable);
-            var uri = uriBuilder.getRequestURI();
-            if(clothes.isEmpty()){
-                model.addAttribute("noInfo","Cannot find any clothes");
-            }
-            constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
-            return "advancedSearch";
+    @PostMapping("/advancedSearch")
+    public String getSearchedClothesByPriceRange(@RequestBody MaxMinModel data,Model model, Pageable pageable, HttpServletRequest uriBuilder){
+         min = data.getMin();
+         max = data.getMax();
+        var uri = uriBuilder.getRequestURI();
+        var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble(min),Double.parseDouble(max),pageable);
+        if(clothes.isEmpty()){
+            model.addAttribute("noInfo","Cannot find any clothes");
         }
+        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
+        return "advancedSearch";
+    }
+
+//    @GetMapping("/advancedSearch/price")
+//    public String getPrice(String min,String max ){
+//        return "advancedSearch";
+//    }
+//    @GetMapping("/advancedSearch/price")
+//    public String getPrice(Model model, Pageable pageable, HttpServletRequest uriBuilder){
+//        var uri = uriBuilder.getRequestURI();
+//        var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble(getMin()),Double.parseDouble(getMax()),pageable);
+//        if(clothes.isEmpty()){
+//            model.addAttribute("noInfo","Cannot find any clothes");
+//        }
+//        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
+//        return "advancedSearch";
+//    }
+
+
+//        public String getPrice(String min,String max,Model model,Pageable pageable,HttpServletRequest uriBuilder){
+//
+//        }
 //
 //    @GetMapping("/places/{id:\\d+?}")
 //    public String placePage(@PathVariable int id, Model model, Pageable pageable, HttpServletRequest uriBuilder) {

@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("/loginPage")
     public String indexPage() {
-        return "loginPage";
+        return "login";
     }
 
     @PostMapping("/login")
@@ -36,13 +36,13 @@ public class UserController {
             model.addAttribute("errorPassword",validationResult.getFieldError("password"));
             model.addAttribute("form",loginDTO);
             //System.out.println(validationResult.getFieldErrors("username"));
-            return "loginPage";
+            return "login";
       } else {
             Optional<User> userOptional = Optional.ofNullable(userService.getUserByUserName(loginDTO.getUsername()));
             if(userOptional.isPresent()) {
 
                 model.addAttribute("user", userOptional.get());
-                return "login";
+                return "profile";
             }else {
                 throw new UserNotFoundException();
             }
