@@ -4,9 +4,8 @@ import com.attractor.month9onlineshop.dto.UserDTO;
 import com.attractor.month9onlineshop.dto.UserRegistrationDTO;
 import com.attractor.month9onlineshop.entity.User;
 import com.attractor.month9onlineshop.repository.UserRepository;
-
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotBlank;
@@ -19,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder encoder;
     @NotBlank
     @NotNull
     private User user;
@@ -46,7 +46,7 @@ public class UserService {
                 .userName(username)
                 .email(userRegistrationDTO.getEmail())
                 .fullName(userRegistrationDTO.getFullName())
-                .password(userRegistrationDTO.getPassword())
+                .password(encoder.encode(userRegistrationDTO.getPassword()))
                 .build();
         userRepository.save(user);
         UserDTO  userDTO = UserDTO.builder()

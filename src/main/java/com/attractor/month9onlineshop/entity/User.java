@@ -3,6 +3,9 @@ package com.attractor.month9onlineshop.entity;
 import lombok.Builder;
 import lombok.Data;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import lombok.*;
 
 @Entity
@@ -25,4 +28,11 @@ public class User {
     private String password;
     @Column(name="full_name")
     private String fullName;
+    @Column
+    @Builder.Default
+    private boolean enabled = true;
+
+    @Column(name="role")
+    @Builder.Default
+    private String role = "USER";
 }

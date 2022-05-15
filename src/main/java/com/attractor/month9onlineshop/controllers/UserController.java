@@ -22,40 +22,45 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/loginPage")
-    public String indexPage() {
-        return "login";
-    }
+//    @GetMapping("/login")
+//    public String loginPage() {
+//        return "login";
+//    }
+@GetMapping("/login")
+public String loginPage(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
+    model.addAttribute("error", error);
+    return "login";
+}
 
-    @PostMapping("/login")
-    public String getUserName(@Valid LoginDTO loginDTO, BindingResult validationResult, Model model) {
-
-        if (validationResult.hasFieldErrors()) {
-            //model.addAttribute("errors", validationResult.getFieldErrors());
-            model.addAttribute("errorUsername",validationResult.getFieldError("username"));
-            model.addAttribute("errorPassword",validationResult.getFieldError("password"));
-            model.addAttribute("form",loginDTO);
-            //System.out.println(validationResult.getFieldErrors("username"));
-            return "login";
-      } else {
-            Optional<User> userOptional = Optional.ofNullable(userService.getUserByUserName(loginDTO.getUsername()));
-            if(userOptional.isPresent()) {
-
-                model.addAttribute("user", userOptional.get());
-                return "profile";
-            }else {
-                throw new UserNotFoundException();
-            }
-
-        }
-    }
+//    @PostMapping("/login")
+//    public String getUserName(@Valid LoginDTO loginDTO, BindingResult validationResult, Model model) {
+//
+//        if (validationResult.hasFieldErrors()) {
+//            //model.addAttribute("errors", validationResult.getFieldErrors());
+//            model.addAttribute("errorUsername",validationResult.getFieldError("username"));
+//            model.addAttribute("errorPassword",validationResult.getFieldError("password"));
+//            model.addAttribute("form",loginDTO);
+//            //System.out.println(validationResult.getFieldErrors("username"));
+//            return "login";
+//      } else {
+//            Optional<User> userOptional = Optional.ofNullable(userService.getUserByUserName(loginDTO.getUsername()));
+//            if(userOptional.isPresent()) {
+//
+//                model.addAttribute("user", userOptional.get());
+//                return "profile";
+//            }else {
+//                throw new UserNotFoundException();
+//            }
+//
+//        }
+//    }
 
     @GetMapping("/register")
     public String getRegistration(){
         return "register";
     }
 
-    @PostMapping(value = "/registration")
+    @PostMapping(value = "/register")
     public String getRegistrationForm(@Valid UserRegistrationDTO userRegistrationDTO,BindingResult validationResult, Model model){
         if (validationResult.hasFieldErrors()) {
 //            model.addAttribute("errors",validationResult.getFieldErrors());
@@ -75,7 +80,7 @@ public class UserController {
                 throw new UserEmailAlreadyExistsException();
             }
             model.addAttribute("user", userService.addUser(userRegistrationDTO));
-            return "registration";
+            return "login";
         }
 
     }

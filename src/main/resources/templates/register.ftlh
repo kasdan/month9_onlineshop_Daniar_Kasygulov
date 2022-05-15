@@ -4,7 +4,10 @@
     <title>Registration</title>
 </head>
 <body>
-<form action="/registration" method="post">
+<form action="/register" method="post">
+    <#if _csrf??>
+        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+    </#if>
     <input type="text" placeholder="Enter username" name="username">
     <span style="color: red"><#if errorUsername??> ${errorUsername.defaultMessage!'-- no message --'}</#if></span>
     <br>
