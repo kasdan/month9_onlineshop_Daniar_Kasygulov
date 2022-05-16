@@ -14,13 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping
 @RequiredArgsConstructor
 public class FrontendController {
-    private static String min;
-    private static String max;
     private final ClothesService clothesService;
     private final PropertiesService propertiesService;
 
@@ -44,10 +44,15 @@ public class FrontendController {
     }
 
     @GetMapping
-    public String index(Model model, Pageable pageable, HttpServletRequest uriBuilder) {
+    public String index(Model model, Pageable pageable, HttpServletRequest uriBuilder, Principal principal) {
         var clothes = clothesService.getListOfClothes(pageable);
         var uri = uriBuilder.getRequestURI();
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
+        Optional<Principal> principalOptional = Optional.ofNullable(principal);
+        if(principalOptional.isPresent()) {
+            model.addAttribute("user", principal.getName());
+            model.addAttribute("login","login");
+        }
         return "index";
     }
 
@@ -92,18 +97,30 @@ public class FrontendController {
         constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
         return "advancedSearch";
     }
-    @PostMapping("/advancedSearch")
-    public String getSearchedClothesByPriceRange(@RequestBody MaxMinModel data,Model model, Pageable pageable, HttpServletRequest uriBuilder){
-         min = data.getMin();
-         max = data.getMax();
-        var uri = uriBuilder.getRequestURI();
+    @GetMapping("/price/{data}")
+    public String getSearchedClothesByPriceRange(@PathVariable String data, Model model, Pageable pageable, HttpServletRequest uriBuilder){
+       var min = data.split("and")[0].replace("p","");
+        var max = data.split("and")[1];
         var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble(min),Double.parseDouble(max),pageable);
+        var uri = uriBuilder.getRequestURI();
         if(clothes.isEmpty()){
             model.addAttribute("noInfo","Cannot find any clothes");
         }
         constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
         return "advancedSearch";
     }
+//    @PostMapping("/advancedSearch")
+//    public String getSearchedClothesByPriceRange(@RequestBody MaxMinModel data,Model model, Pageable pageable, HttpServletRequest uriBuilder){
+//         min = data.getMin();
+//         max = data.getMax();
+//        var uri = uriBuilder.getRequestURI();
+//        var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble(min),Double.parseDouble(max),pageable);
+//        if(clothes.isEmpty()){
+//            model.addAttribute("noInfo","Cannot find any clothes");
+//        }
+//        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
+//        return "advancedSearch";
+//    }
 
 //    @GetMapping("/advancedSearch/price")
 //    public String getPrice(String min,String max ){

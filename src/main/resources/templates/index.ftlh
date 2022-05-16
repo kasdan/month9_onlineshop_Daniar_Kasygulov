@@ -1,9 +1,13 @@
 <#import "partials/main.ftlh" as main/>
 
-<@main.renderWith>
+<@main.renderWith styles=["css/index.css"]>
     <h1>Clothes</h1>
     <a href="/advancedSearch">Advanced search</a>
+    <div id="<#if login??>${login!''}</#if>">
     <a href="/login">Login</a>
+    </div>
+    <div id="logout"><a href="/logout">Logout</a></div>
+    <div id="profile"><#if user??>Welcome: <a href="/profile">${user}</a> </#if> </div>
     <div class="flex flex-wrap" id="itemList">
             <#list clothes as cloth>
                 <div class="flex flex-column box flex-v-center">

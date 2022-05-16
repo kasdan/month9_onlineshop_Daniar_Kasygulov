@@ -2,6 +2,7 @@ package com.attractor.month9onlineshop.controllers;
 
 
 import com.attractor.month9onlineshop.dto.LoginDTO;
+import com.attractor.month9onlineshop.dto.UserDTO;
 import com.attractor.month9onlineshop.dto.UserRegistrationDTO;
 import com.attractor.month9onlineshop.entity.User;
 import com.attractor.month9onlineshop.exceptions.UserAlreadyExistsException;
@@ -32,6 +33,10 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
     model.addAttribute("error", error);
     return "login";
 }
+@GetMapping("/logout") String logoutPage(){
+    return "logout";
+}
+
 
 //    @PostMapping("/login")
 //    public String getUserName(@Valid LoginDTO loginDTO, BindingResult validationResult, Model model) {
@@ -57,8 +62,8 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
 //    }
     @GetMapping("/profile")
     public String getProfile(Model model, Principal principal){
-        System.out.println(principal.getName());
-    model.addAttribute("user",principal.getName());
+    var user =
+    model.addAttribute("user",userService.getUserByUserName(principal.getName()));
     return "profile";
     }
     @GetMapping("/register")
@@ -77,7 +82,7 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
             return "register";
         }
         else {
-            Optional<User> optionalUser = Optional.ofNullable(userService.getUserByUserName(userRegistrationDTO.getUsername()));
+            Optional<UserDTO> optionalUser = Optional.ofNullable(userService.getUserByUserName(userRegistrationDTO.getUsername()));
             Optional<User> optionalUserByEmail = userService.findUserByEmail(userRegistrationDTO.getEmail());
             if(optionalUser.isPresent()){
                 throw new UserAlreadyExistsException();

@@ -23,10 +23,10 @@ public class UserService {
     @NotNull
     private User user;
 
-    public User getUserByUserName(String username){
-        user = userRepository.findUserByUserName(username);
-        return user;
+    public UserDTO getUserByUserName(String username){
+        return UserDTO.from(userRepository.findUserByUserName(username));
     }
+
     public Optional<User> findUserByEmail(String email){
         return userRepository.findUserByEmail(email);
     }

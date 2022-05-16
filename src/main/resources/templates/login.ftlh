@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Login page</title>
-</head>
-
-<body>
+<#import "partials/main.ftlh" as main/>
+<@main.renderWith>
 <h2>Please login into Kids' store.</h2>
 <div>
     <#if error!false >
-        <p style="color:red">Неверные имя пользователя или пароль !</p>
+        <p style="color:red">Wrong username or password!</p>
     </#if>
 </div>
 <form action="/login" method="post">
@@ -26,14 +20,9 @@
     <input type="submit" value="Enter">
 </form>
 <form action="/register">
-<input type="submit" value="Register" >\'
+<input type="submit" value="Register" >
 </form>
-
-<#--<#if errors??>-->
-<#--    <#list errors as fieldError>-->
-<#--        <p>${fieldError.field}- ${fieldError.defaultMessage!'-- no message --'}</p>-->
-<#--    </#list>-->
-<#--</#if>-->
-</body>
-
-</html>
+<div class="bottom-box">
+    <a href="/">to the main page</a>
+</div>
+</@main.renderWith>

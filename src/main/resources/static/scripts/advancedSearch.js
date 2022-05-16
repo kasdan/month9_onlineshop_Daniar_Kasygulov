@@ -8,19 +8,9 @@ $(document).ready(function(){
                 "max":inputvalueMax
             }
         if(inputvalueMin!==0 && inputvalueMax!==0) {
-            fetch("http://localhost:8080/advancedSearch", {
-                method: 'post',
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(
-                fetch("http://localhost:8080/advancedSearch")
-            );
-
+            window.location.replace("http://localhost:8080/price/" + "p"+data.min+"and"+data.max);
         }else {
-            // window.location.replace("http://localhost:8080/advancedSearch");
+             window.location.replace("http://localhost:8080/advancedSearch");
         }
     });
 });
