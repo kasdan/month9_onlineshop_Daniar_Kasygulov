@@ -26,7 +26,7 @@
     <input type="submit" value="Enter">
 </form>
 <form action="/register">
-<input type="submit" value="Register" >
+<input type="submit" value="Register" >\'
 </form>
 
 <#--<#if errors??>-->

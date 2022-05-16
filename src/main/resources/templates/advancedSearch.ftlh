@@ -1,6 +1,6 @@
 <#import "partials/main.ftlh" as main/>
 
-<@main.renderWith>
+<@main.renderWith scripts=["/js/advancedSearch.js"]>
     <h1>Advanced search</h1>
 
         <h4>Please enter the price range</h4>

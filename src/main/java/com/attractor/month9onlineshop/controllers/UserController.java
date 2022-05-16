@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -54,7 +55,12 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
 //
 //        }
 //    }
-
+    @GetMapping("/profile")
+    public String getProfile(Model model, Principal principal){
+        System.out.println(principal.getName());
+    model.addAttribute("user",principal.getName());
+    return "profile";
+    }
     @GetMapping("/register")
     public String getRegistration(){
         return "register";

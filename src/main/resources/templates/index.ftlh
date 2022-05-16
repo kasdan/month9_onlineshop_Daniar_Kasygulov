@@ -3,6 +3,7 @@
 <@main.renderWith>
     <h1>Clothes</h1>
     <a href="/advancedSearch">Advanced search</a>
+    <a href="/login">Login</a>
     <div class="flex flex-wrap" id="itemList">
             <#list clothes as cloth>
                 <div class="flex flex-column box flex-v-center">

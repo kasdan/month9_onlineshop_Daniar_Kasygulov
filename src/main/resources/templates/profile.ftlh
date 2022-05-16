@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<p>${user.userName} has ${user.email}</p>
+<p>${user}</p>
 <#--    <div class="container flex flex-col align-center">-->
 <#--      <h1>Who's winning?</h1>-->
 <#--      <main class="flex flex-wrap align-center">-->
