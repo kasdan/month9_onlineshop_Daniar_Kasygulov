@@ -1,6 +1,6 @@
 <#import "partials/main.ftlh" as main/>
 
-<@main.renderWith styles=["css/index.css"]>
+<@main.renderWith styles=["css/styles.css"]>
 
     <div class="flex flex-wrap" id="itemList">
             <#list clothes as cloth>
