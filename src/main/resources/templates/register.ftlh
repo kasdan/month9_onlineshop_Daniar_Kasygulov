@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Registration</title>
-</head>
-<body>
+<#import "partials/main.ftlh" as main/>
+<@main.renderWith>
 <form action="/register" method="post">
     <#if _csrf??>
         <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
@@ -22,10 +18,4 @@
     <br>
     <input type="submit" value="Enter">
 </form>
-<#--<#if errors??>-->
-<#--    <#list errors as fieldError>-->
-<#--        <p>${fieldError.field}- ${fieldError.defaultMessage!'-- no message --'}</p>-->
-<#--    </#list>-->
-<#--</#if>-->
-</body>
-</html>
+</@main.renderWith>

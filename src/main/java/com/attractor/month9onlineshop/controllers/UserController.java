@@ -63,7 +63,7 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
     @GetMapping("/profile")
     public String getProfile(Model model, Principal principal){
     var user =
-    model.addAttribute("user",userService.getUserByUserName(principal.getName()));
+    model.addAttribute("user",userService.getUserByUserNameDTO(principal.getName()));
     return "profile";
     }
     @GetMapping("/register")
@@ -82,7 +82,7 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
             return "register";
         }
         else {
-            Optional<UserDTO> optionalUser = Optional.ofNullable(userService.getUserByUserName(userRegistrationDTO.getUsername()));
+            Optional<User> optionalUser = Optional.ofNullable(userService.getUserByUserName(userRegistrationDTO.getUsername()));
             Optional<User> optionalUserByEmail = userService.findUserByEmail(userRegistrationDTO.getEmail());
             if(optionalUser.isPresent()){
                 throw new UserAlreadyExistsException();
