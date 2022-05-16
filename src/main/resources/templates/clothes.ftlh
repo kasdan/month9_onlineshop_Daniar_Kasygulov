@@ -1,6 +1,6 @@
 <#import "partials/main.ftlh" as main/>
 
-<@main.renderWith styles=["css/item.css"]>
+<@main.renderWith styles=["/css/item.css"]>
 
                 <div class="item">
                     <h3>${cloth.itemName}</h3>
