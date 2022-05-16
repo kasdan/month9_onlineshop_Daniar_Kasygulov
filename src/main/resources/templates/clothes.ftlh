@@ -9,4 +9,10 @@
                      Price: ${cloth.price}<br>
                      Size:${cloth.size}</p>
                 </div>
+    <form action="/addtobasket" method="post">
+        <#if _csrf??>
+            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+        </#if>
+        <input type="submit" value="Add to basket">
+    </form>
 </@main.renderWith>

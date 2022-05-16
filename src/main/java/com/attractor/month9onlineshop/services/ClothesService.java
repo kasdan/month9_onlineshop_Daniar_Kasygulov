@@ -46,4 +46,12 @@ public class ClothesService {
         }
     }
 
+    public Clothes getClothesByIdEntity(Long id){
+        var clothes =clothesRepository.getClothesById(id);
+        if(clothes.isPresent()){
+            return clothesRepository.getClothesById(id).get();
+        }else {
+            throw new ClothesNotFountException();
+        }
+    }
 }
