@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ClothesRepository extends JpaRepository<Clothes,Long> {
     Page<Clothes> findClothesByItemNameContaining(Pageable pageable, String name);
     Page<Clothes> findClothesByDescriptionContaining(Pageable pageable,String description);
     Page<Clothes> findClothesBySizeContains(Pageable pageable,String size);
     Page<Clothes> findClothesByPriceBetween(Double min,Double max,Pageable pageable);
+    Optional<Clothes> getClothesById(Long id);
 }

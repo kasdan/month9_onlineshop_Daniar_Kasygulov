@@ -3,6 +3,7 @@ package com.attractor.month9onlineshop.services;
 import com.attractor.month9onlineshop.dto.ClothesDTO;
 import com.attractor.month9onlineshop.entity.Clothes;
 import com.attractor.month9onlineshop.entity.User;
+import com.attractor.month9onlineshop.exceptions.ClothesNotFountException;
 import com.attractor.month9onlineshop.repository.ClothesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,15 @@ public class ClothesService {
 
     public Page<ClothesDTO> getListOfClothesByPriceBetween(Double min,Double max,Pageable pageable){
         return clothesRepository.findClothesByPriceBetween(min,max,pageable).map(ClothesDTO::from);
+    }
+
+    public ClothesDTO getClothesById(Long id){
+        var clothes =clothesRepository.getClothesById(id);
+        if(clothes.isPresent()){
+            return ClothesDTO.from(clothesRepository.getClothesById(id).get());
+        }else {
+            throw new ClothesNotFountException();
+        }
     }
 
 }

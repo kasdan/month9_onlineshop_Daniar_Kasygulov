@@ -24,4 +24,9 @@ public class ApplicationExceptionController {
     public ResponseEntity<Object> exceptionUserEmailExists(UserEmailAlreadyExistsException exception){
         return new ResponseEntity<>("User email already exists",HttpStatus.FOUND);
     }
+
+    @ExceptionHandler(value = ClothesNotFountException.class)
+    public ResponseEntity<Object> exceptionClothesNotFount(ClothesNotFountException exception){
+        return new ResponseEntity<>("Clothes by this id does not exists",HttpStatus.NOT_FOUND);
+    }
 }

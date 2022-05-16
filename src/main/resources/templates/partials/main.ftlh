@@ -22,7 +22,14 @@
         </#list>
     </head>
     <body>
-
+    <h1>Clothes</h1>
+    <a href="/advancedSearch">Advanced search</a>
+    <div id="<#if login??>${login!''}</#if>">
+        <a href="/login">Login</a>
+    </div>
+    <div id="logout"><a href="/logout">Logout</a></div>
+    <div id="profile"><#if user??>Welcome: <a href="/profile">${user}</a> </#if> </div>
+    <div id = "homepage"><a href="/">Home page</a></div>
     <#--
     например если бы у нашего сайта было какое-то верхнее меню,
     то мы могли бы его тут указать

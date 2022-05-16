@@ -55,6 +55,14 @@ public class FrontendController {
         }
         return "index";
     }
+    @GetMapping("/clothes/{id:\\d+?}")
+    public String clothesPage(@PathVariable int id,Model model) {
+        model.addAttribute("cloth", clothesService.getClothesById(Long.valueOf(id)));
+        return "clothes";
+    }
+
+
+
 
     @GetMapping("/advancedSearch")
     public String advancedSearch(Model model,Pageable pageable,HttpServletRequest uriBuilder){

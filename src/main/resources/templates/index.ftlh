@@ -1,20 +1,16 @@
 <#import "partials/main.ftlh" as main/>
 
 <@main.renderWith styles=["css/index.css"]>
-    <h1>Clothes</h1>
-    <a href="/advancedSearch">Advanced search</a>
-    <div id="<#if login??>${login!''}</#if>">
-    <a href="/login">Login</a>
-    </div>
-    <div id="logout"><a href="/logout">Logout</a></div>
-    <div id="profile"><#if user??>Welcome: <a href="/profile">${user}</a> </#if> </div>
+
     <div class="flex flex-wrap" id="itemList">
             <#list clothes as cloth>
                 <div class="flex flex-column box flex-v-center">
-                    <h3>${cloth.itemName}</h3>
+                    <a href="/clothes/${cloth.id}"><h3>${cloth.itemName}</h3>
                     <img src="/images/${cloth.photo}.jpg">
                     <p>Description: ${cloth.description}</p>
                     <p>Price: ${cloth.price}</p>
+                    </a>
+
                 </div>
             </#list>
     </div>
