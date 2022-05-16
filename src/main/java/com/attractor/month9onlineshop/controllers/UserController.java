@@ -37,29 +37,6 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
     return "logout";
 }
 
-
-//    @PostMapping("/login")
-//    public String getUserName(@Valid LoginDTO loginDTO, BindingResult validationResult, Model model) {
-//
-//        if (validationResult.hasFieldErrors()) {
-//            //model.addAttribute("errors", validationResult.getFieldErrors());
-//            model.addAttribute("errorUsername",validationResult.getFieldError("username"));
-//            model.addAttribute("errorPassword",validationResult.getFieldError("password"));
-//            model.addAttribute("form",loginDTO);
-//            //System.out.println(validationResult.getFieldErrors("username"));
-//            return "login";
-//      } else {
-//            Optional<User> userOptional = Optional.ofNullable(userService.getUserByUserName(loginDTO.getUsername()));
-//            if(userOptional.isPresent()) {
-//
-//                model.addAttribute("user", userOptional.get());
-//                return "profile";
-//            }else {
-//                throw new UserNotFoundException();
-//            }
-//
-//        }
-//    }
     @GetMapping("/profile")
     public String getProfile(Model model, Principal principal){
     var user =
