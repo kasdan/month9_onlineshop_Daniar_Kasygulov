@@ -10,14 +10,12 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BasketDTO {
-    private Long id;
     private Long clothesId;
     private Long userId;
     private Integer quantity;
 
     public static BasketDTO from(Basket basket){
         return builder()
-                .id(basket.getId())
                 .clothesId(basket.getClothes().getId())
                 .userId(basket.getUser().getId())
                 .quantity(basket.getQuantity())

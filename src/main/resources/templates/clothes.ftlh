@@ -1,18 +1,21 @@
 <#import "partials/main.ftlh" as main/>
 
 <@main.renderWith styles=["/css/item.css"]>
-
+    <#if basket ??> <a href="/basket"> </a></#if>
+    <h3>${cloth.itemName}</h3>
                 <div class="item">
-                    <h3>${cloth.itemName}</h3>
                     <img src="/images/${cloth.photo}.jpg">
-                    <p>Description: ${cloth.description}<br>
-                     Price: ${cloth.price}<br>
-                     Size:${cloth.size}</p>
                 </div>
-    <form action="/addtobasket" method="post">
+    <p>Description: ${cloth.description}<br>
+        Price: ${cloth.price}<br>
+        Size:${cloth.size}</p>
+    <form action="/clothes/${cloth.id}" method="post">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
         </#if>
+        <input type="number" name="clothesId" hidden value="${cloth.id}">
+        <input type="number" name="username" hidden value="<#if user??>${user}</#if>">
+        <input type="number" placeholder="please enter quantity" name="quantity">
         <input type="submit" value="Add to basket">
     </form>
 </@main.renderWith>

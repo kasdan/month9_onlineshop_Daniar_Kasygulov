@@ -56,8 +56,12 @@ public class FrontendController {
         return "index";
     }
     @GetMapping("/clothes/{id:\\d+?}")
-    public String clothesPage(@PathVariable int id,Model model) {
+    public String clothesPage(@PathVariable int id,Model model,Principal principal) {
         model.addAttribute("cloth", clothesService.getClothesById(Long.valueOf(id)));
+        Optional<Principal> principalOptional = Optional.ofNullable(principal);
+        if(principalOptional.isPresent()) {
+            model.addAttribute("user", principal.getName());
+        }
         return "clothes";
     }
 
