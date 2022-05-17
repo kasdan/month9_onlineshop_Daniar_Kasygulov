@@ -1,5 +1,6 @@
 package com.attractor.month9onlineshop.controllers;
 
+import com.attractor.month9onlineshop.dto.BasketDTO;
 import com.attractor.month9onlineshop.services.BasketService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,5 +17,7 @@ public class BasketRestController {
     private final BasketService basketService;
 
     @GetMapping("/add")
-    public String addToTheBasket(P)
+    public BasketDTO addToTheBasket(@RequestParam Integer clothesId, String username, Integer quantity){
+        return basketService.addToBasket(Long.valueOf(clothesId),username,quantity);
+    }
 }

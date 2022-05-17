@@ -1,5 +1,6 @@
 package com.attractor.month9onlineshop.services;
 
+import com.attractor.month9onlineshop.dto.BasketDTO;
 import com.attractor.month9onlineshop.entity.Basket;
 import com.attractor.month9onlineshop.entity.Clothes;
 import com.attractor.month9onlineshop.entity.User;
@@ -15,7 +16,7 @@ public class BasketService {
     private final UserService userService;
     private final ClothesService clothesService;
 
-    public void addToBasket(Long clothesId, String username, Integer quantity){
+    public BasketDTO addToBasket(Long clothesId, String username, Integer quantity){
         var user = userService.getUserByUserName(username);
         var clothes = clothesService.getClothesByIdEntity(clothesId);
         var basket = Basket.builder()
@@ -23,5 +24,7 @@ public class BasketService {
                 .clothes(clothes)
                 .quantity(quantity)
                 .build();
+        basketRepository.save(basket);
+        return BasketDTO.from(basket);
     }
 }
