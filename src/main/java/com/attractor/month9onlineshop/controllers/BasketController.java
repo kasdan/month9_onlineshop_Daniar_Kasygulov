@@ -24,4 +24,12 @@ public class BasketController {
         return "redirect:/clothes/"+id;
     }
 
+    @GetMapping("/basket")
+    public String getBasket(Model model,Principal principal){
+        var basketList = basketService.getBasketForUser(principal.getName());
+        model.addAttribute("baskets",basketList);
+        model.addAttribute("user",principal.getName());
+        return "/basket";
+    }
+
 }
