@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -17,11 +18,10 @@ public class BasketController {
     private final BasketService basketService;
 
     @PostMapping("/clothes/{id:\\d+?}")
-    public String addToBasket(@PathVariable int id, @Valid BasketAddDTO basketAddDTO, Model model,Principal principal){
+    public String addToBasket(@PathVariable int id, @Valid BasketAddDTO basketAddDTO,Principal principal,Model model){
         var basket = basketService.addToBasket(Long.parseLong(basketAddDTO.getClothesId()),principal.getName(), Integer.parseInt(basketAddDTO.getQuantity()));
-        model.addAttribute("basket",basket.toString());
-        model.addAttribute("user","user");
-        return "clothes/"+id;
+        model.addAttribute("basket",basket);
+        return "redirect:/clothes/"+id;
     }
 
 }

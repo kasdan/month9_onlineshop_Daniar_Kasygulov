@@ -1,7 +1,7 @@
 <#import "partials/main.ftlh" as main/>
 
 <@main.renderWith styles=["/css/item.css"]>
-    <#if basket ??> <a href="/basket"> </a></#if>
+
     <h3>${cloth.itemName}</h3>
                 <div class="item">
                     <img src="/images/${cloth.photo}.jpg">

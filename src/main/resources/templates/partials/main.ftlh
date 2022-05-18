@@ -30,6 +30,7 @@
     <div id="logout"><a href="/logout">Logout</a></div>
     <div id="profile"><#if user??>Welcome: <a href="/profile">${user}</a> </#if> </div>
     <div id = "homepage"><a href="/">Home page</a></div>
+    <div id = "basket"><a href="/basket"> Basket </a></div>
     <#--
     например если бы у нашего сайта было какое-то верхнее меню,
     то мы могли бы его тут указать
