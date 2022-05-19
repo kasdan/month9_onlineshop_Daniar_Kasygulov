@@ -42,6 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/clothes")
                 .authenticated();
         http.authorizeRequests()
+                .antMatchers("/basket")
+                .authenticated();
+        http.authorizeRequests()
                 .anyRequest()
                 .permitAll();
     }

@@ -11,6 +11,11 @@
                 Price: ${basket.clothes.price}<br>
                 Size:${basket.clothes.size}</p>
             <p> Clothes quantity: ${basket.quantity}</p>
+            <form action="/basket" method="get">
+                <input hidden type="number" value="${basket.id}" name="basketId">
+                <input type="submit" value="Delete">
+            </form>
         </div>
+
     </#list>
 </@main.renderWith>

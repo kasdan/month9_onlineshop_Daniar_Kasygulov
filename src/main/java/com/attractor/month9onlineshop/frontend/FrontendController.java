@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Controller
@@ -44,11 +46,17 @@ public class FrontendController {
     }
 
     @GetMapping
-    public String index(Model model, Pageable pageable, HttpServletRequest uriBuilder, Principal principal) {
+    public String index(Model model, Pageable pageable, HttpServletRequest uriBuilder, Principal principal, HttpSession session) {
         var clothes = clothesService.getListOfClothes(pageable);
         var uri = uriBuilder.getRequestURI();
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
         Optional<Principal> principalOptional = Optional.ofNullable(principal);
+        var map = new HashMap<String, Object>();
+        map.put("Идентификатор сессии", session.getId());
+        session.getAttributeNames()
+                .asIterator()
+                .forEachRemaining(key -> map.put(key, session.getAttribute(key).toString()));
+        model.addAttribute("sessionAttributes", map);
         if(principalOptional.isPresent()) {
             model.addAttribute("user", principal.getName());
             model.addAttribute("login","login");

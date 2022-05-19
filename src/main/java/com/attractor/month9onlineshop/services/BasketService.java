@@ -9,6 +9,7 @@ import com.attractor.month9onlineshop.repository.BasketRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,5 +37,10 @@ public class BasketService {
         var basketDTOList = basketRepository.getBasketByUserUserName(username)
                 .stream().map(BasketDTOwithClothes::from).collect(Collectors.toList());
         return basketDTOList;
+    }
+
+    @Transactional
+    public void deleteBasketInstanceById(String id) {
+       basketRepository.deleteBasketById(Long.parseLong(id));
     }
 }
