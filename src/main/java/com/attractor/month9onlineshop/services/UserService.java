@@ -7,6 +7,7 @@ import com.attractor.month9onlineshop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -59,4 +60,9 @@ public class UserService {
                 .build();
         return userDTO;
     }
+    @Transactional
+    public void changeUserPassword(User user){
+        userRepository.updatePassword(user.getId(), user.getPassword());
+    }
+
 }

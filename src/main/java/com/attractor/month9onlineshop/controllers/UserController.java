@@ -37,10 +37,10 @@ public class UserController {
     }
 
     @PostMapping("/restore")
-    public String restorePasswordPost(@RequestParam(name="email") String email, RedirectAttributes attributes) {
+    public String restorePasswordPost(@RequestParam(name="email") String email,Model model) {
         String uniqueLink = restorePasswordService.restorePassword(email);
-        attributes.addAttribute("uniqueLink",uniqueLink);
-        return "redirect:/restore";
+        model.addAttribute("uniqueLink",uniqueLink);
+        return "restore";
     }
     @GetMapping("/restore/{hash}")
     public String restorePasswordLink(@PathVariable String hash, Model model, HttpServletRequest request) {

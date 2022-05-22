@@ -10,6 +10,6 @@
   <input type="submit" value="Restore"/>
  </form>
 
- <a href="/restore/<#if uniqueLink??>${uniqueLink}</#if>"> Link</a>
+ <#if uniqueLink??><a href="/restore/${uniqueLink}"> Go to the link</a></#if>
 
 </@main.renderWith>
