@@ -3,10 +3,8 @@ package com.attractor.month9onlineshop.controllers;
 import com.attractor.month9onlineshop.constant.Constants;
 import com.attractor.month9onlineshop.dto.BasketDTO;
 import com.attractor.month9onlineshop.dto.OrderDTO;
-import com.attractor.month9onlineshop.services.BasketService;
 import com.attractor.month9onlineshop.services.OrderService;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +24,6 @@ public class OrderController {
 
     @GetMapping("/order")
     public String getOrder(Model model, Principal principal, HttpSession session){
-        System.out.println(principal.getName());
         var orderDTOList = orderService.getOrderListForUser(principal.getName());
         model.addAttribute("baskets",orderDTOList.stream().map(OrderDTO::getBasketDTOwithClothes).collect(Collectors.toList()));
         model.addAttribute("user",principal.getName());

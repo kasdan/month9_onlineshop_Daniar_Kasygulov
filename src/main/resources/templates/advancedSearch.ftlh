@@ -23,11 +23,13 @@
             <#list clothes as cloth>
                 <div class="flex flex-column box flex-v-center">
                     <h3>${cloth.itemName}</h3>
-                    <img src="/images/${cloth.photo}.jpg">
+                    <a href="/clothes/${cloth.id}">
+                        <img src="/images/${cloth.photo}.jpg">
                     <p>Description: ${cloth.description} <br>
                         Size: ${cloth.size} <br>
                         Price: ${cloth.price}
                     </p>
+                        </a>
                 </div>
             </#list>
         </#if>
