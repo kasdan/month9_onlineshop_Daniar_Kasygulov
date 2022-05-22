@@ -46,12 +46,17 @@ public class BasketController {
     }
 
     @GetMapping("/basket")
-    public String getBasket(@RequestParam(name = "basketId",required = false) String basketId, Model model, Principal principal){
-        var basketList = basketService.getBasketForUser(principal.getName());
-        if(basketId!=null) {
-            System.out.println("basket: " + basketId);
+    public String getBasket( @RequestParam(name = "quantity",required = false) String quantity,
+                             @RequestParam(name = "basketId",required = false) String basketId,
+                             Model model, Principal principal){
+
+        if(basketId!=null & quantity==null) {
             basketService.deleteBasketInstanceById(basketId);
         }
+        else if(basketId!=null & quantity!=null) {
+            basketService.changeBasketQuantity(basketId,quantity);
+        }
+        var basketList = basketService.getBasketForUser(principal.getName());
         model.addAttribute("baskets",basketList);
         model.addAttribute("user",principal.getName());
         return "/basket";
@@ -67,4 +72,5 @@ public class BasketController {
         model.addAttribute("user",principal.getName());
         return "/basket";
     }
+
 }

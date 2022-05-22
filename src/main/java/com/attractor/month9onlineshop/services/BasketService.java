@@ -43,4 +43,14 @@ public class BasketService {
     public void deleteBasketInstanceById(String id) {
        basketRepository.deleteBasketById(Long.parseLong(id));
     }
+
+    @Transactional
+    public void changeBasketQuantity(String id,String quantity){
+        if(Integer.parseInt(quantity)==0) {
+            basketRepository.deleteBasketById(Long.parseLong(id));
+        }
+        else{
+            basketRepository.updateQuantity(Long.parseLong(id),Integer.parseInt(quantity));
+        }
+    }
 }
