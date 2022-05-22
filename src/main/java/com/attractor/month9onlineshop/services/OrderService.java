@@ -7,6 +7,7 @@ import com.attractor.month9onlineshop.entity.Order;
 import com.attractor.month9onlineshop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +34,14 @@ public class OrderService {
     public List<OrderDTO> getOrderListForUser(String username){
         var user = userService.getUserByUserName(username);
         var orders = orderRepository.findOrdersByUserId(user.getId()).stream().map(OrderDTO::from).collect(Collectors.toList());
-        System.out.println(orders);
        return orders;
+    }
+    @Transactional
+    public void deleteOrders(String username){
+        var user = userService.getUserByUserName(username);
+        var orders = orderRepository.findOrdersByUserId(user.getId());
+        for(var order: orders){
+            orderRepository.deleteOrderById(order.getId());
+        }
     }
 }

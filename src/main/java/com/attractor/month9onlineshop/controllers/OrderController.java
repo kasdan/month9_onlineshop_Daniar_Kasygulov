@@ -46,4 +46,10 @@ public class OrderController {
         return "redirect:/order";
     }
 
+    @PostMapping("/order/delete")
+    public String orderDelete(Principal principal){
+        orderService.deleteOrders(principal.getName());
+        return "redirect:/order";
+    }
+
 }

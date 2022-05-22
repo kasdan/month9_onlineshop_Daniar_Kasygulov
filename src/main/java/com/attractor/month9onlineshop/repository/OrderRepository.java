@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends PagingAndSortingRepository<Order,String> {
     List<Order> findOrdersByUserId(Long userId);
+    void deleteOrderById(Long id);
 //    @Query(value = "INSERT INTO orders (basket_id, user_id) VALUES ('2', '2')",nativeQuery = true)
 //    void inertIntoOrders(@Param("basketId") Long basketId, @Param("current") Boolean current);
 }
