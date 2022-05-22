@@ -9,6 +9,7 @@
   <input type="email" placeholder="Enter email" name="email" id="email" />
   <input type="submit" value="Restore"/>
  </form>
- <#if uniqueLink??><a href="/restore/${uniqueLink}"></a></#if>
+
+ <a href="/restore/<#if uniqueLink??>${uniqueLink}</#if>"> Link</a>
 
 </@main.renderWith>

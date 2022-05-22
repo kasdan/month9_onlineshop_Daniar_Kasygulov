@@ -17,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Optional;
@@ -35,15 +37,15 @@ public class UserController {
     }
 
     @PostMapping("/restore")
-    public String restorePasswordPost(@RequestParam(name="email") String email, Model model) {
+    public String restorePasswordPost(@RequestParam(name="email") String email, RedirectAttributes attributes) {
         String uniqueLink = restorePasswordService.restorePassword(email);
-        model.addAttribute("uniqueLink",uniqueLink);
-        return "restore";
+        attributes.addAttribute("uniqueLink",uniqueLink);
+        return "redirect:/restore";
     }
     @GetMapping("/restore/{hash}")
-    public String restorePasswordLink(@PathVariable String hash,Model model) {
-        restorePasswordService.changePassword(hash);
-        return "restore";
+    public String restorePasswordLink(@PathVariable String hash, Model model, HttpServletRequest request) {
+        restorePasswordService.changePassword(hash,request);
+        return "redirect:/";
     }
 
 
