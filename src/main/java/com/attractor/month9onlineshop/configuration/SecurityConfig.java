@@ -42,11 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/clothes")
                 .authenticated();
         http.authorizeRequests()
+                .antMatchers("/clothes/**")
+                .authenticated();
+        http.authorizeRequests()
                 .antMatchers("/basket")
                 .authenticated();
         http.authorizeRequests()
-                        .antMatchers("/order").authenticated();
-
+                .antMatchers("/order")
+                .authenticated();
         http.authorizeRequests()
                 .anyRequest()
                 .permitAll();

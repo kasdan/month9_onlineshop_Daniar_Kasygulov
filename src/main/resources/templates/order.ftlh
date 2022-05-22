@@ -1,5 +1,6 @@
 <#import "partials/main.ftlh" as main/>
 <@main.renderWith styles=["/css/item.css"]>
+    <h1>This is order page</h1>
     <#list baskets as basket>
         <div class="flex flex-column box flex-v-center">
             <div class="item">
@@ -11,8 +12,17 @@
             <p> Clothes quantity: ${basket.quantity}</p>
              </div>
     </#list>
-    <form>
+    <form action="order/buy" method="post">
+        <#if _csrf??>
+            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+        </#if>
         <input type="submit" value="Buy">
+    </form>
+    <form method="post" action="order/delete">
+        <#if _csrf??>
+            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+        </#if>
+        <input type="submit" value="Delete">
     </form>
 
 </@main.renderWith>
