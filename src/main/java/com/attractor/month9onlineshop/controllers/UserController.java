@@ -8,6 +8,7 @@ import com.attractor.month9onlineshop.entity.User;
 import com.attractor.month9onlineshop.exceptions.UserAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserEmailAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserNotFoundException;
+import com.attractor.month9onlineshop.services.CapchaService;
 import com.attractor.month9onlineshop.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final CapchaService capchaService;
 
 //    @GetMapping("/login")
 //    public String loginPage() {
@@ -45,13 +47,22 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
     return "profile";
     }
     @GetMapping("/register")
-    public String getRegistration(){
-        return "register";
+    public String getRegistration(Model model){
+
+    model.addAttribute("capcha",capchaService.getNewCapcha());
+    return "register";
     }
 
     @PostMapping(value = "/register")
-    public String getRegistrationForm(@Valid UserRegistrationDTO userRegistrationDTO,BindingResult validationResult, Model model){
-        if (validationResult.hasFieldErrors()) {
+    public String getRegistrationForm(@Valid UserRegistrationDTO userRegistrationDTO, @RequestParam(name="capcha") String capcha,
+                                      BindingResult validationResult, Model model){
+    System.out.println(capcha);
+         if(!capchaService.checkCapcha(capcha) || capcha==null){
+            model.addAttribute("errorCapcha","Please enter correct capcha");
+            model.addAttribute("capcha",capchaService.getNewCapcha());
+            return "register";
+        }
+        else if (validationResult.hasFieldErrors()) {
 //            model.addAttribute("errors",validationResult.getFieldErrors());
             model.addAttribute("errorPassword",validationResult.getFieldError("password"));
             model.addAttribute("errorUsername",validationResult.getFieldError("username"));

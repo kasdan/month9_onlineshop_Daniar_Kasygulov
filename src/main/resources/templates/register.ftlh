@@ -16,6 +16,12 @@
     <input type="password" placeholder="Enter password" name="password">
     <span style="color: red"><#if errorPassword??> ${errorPassword.defaultMessage!'-- no message --'}</#if></span>
     <br>
+    <#if capcha??> Capcha: ${capcha}</#if>
+    <br>
+    <input type="text" placeholder="input capcha" name="capcha">
+    <span style="color: red"><#if errorCapcha??> ${errorCapcha!'-- no message --'}</#if></span>
+    <br>
     <input type="submit" value="Enter">
+
 </form>
 </@main.renderWith>
