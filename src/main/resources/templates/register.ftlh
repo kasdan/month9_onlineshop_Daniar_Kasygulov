@@ -18,7 +18,7 @@
     <br>
     <#if capcha??> Capcha: ${capcha}</#if>
     <br>
-    <input type="text" placeholder="input capcha" name="capcha">
+    <input type="text" placeholder="input captcha" name="capcha">
     <span style="color: red"><#if errorCapcha??> ${errorCapcha!'-- no message --'}</#if></span>
     <br>
     <input type="submit" value="Enter">

@@ -58,7 +58,7 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
                                       BindingResult validationResult, Model model){
     System.out.println(capcha);
          if(!capchaService.checkCapcha(capcha) || capcha==null){
-            model.addAttribute("errorCapcha","Please enter correct capcha");
+            model.addAttribute("errorCapcha","Please enter correct captcha");
             model.addAttribute("capcha",capchaService.getNewCapcha());
             return "register";
         }
