@@ -28,4 +28,7 @@ public class Basket {
     @Column(name="quantity")
     private int quantity;
 
+    @Column(name = "current")
+    private Boolean current;
+
 }

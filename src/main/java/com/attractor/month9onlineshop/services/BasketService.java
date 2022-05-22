@@ -28,13 +28,14 @@ public class BasketService {
                 .user(user)
                 .clothes(clothes)
                 .quantity(quantity)
+                .current(true)
                 .build();
         basketRepository.save(basket);
         return BasketDTO.from(basket);
     }
 
     public List<BasketDTOwithClothes> getBasketForUser(String username){
-        var basketDTOList = basketRepository.getBasketByUserUserName(username)
+        var basketDTOList = basketRepository.getBasketByUserUserNameAndCurrent(username,true)
                 .stream().map(BasketDTOwithClothes::from).collect(Collectors.toList());
         return basketDTOList;
     }
@@ -52,5 +53,14 @@ public class BasketService {
         else{
             basketRepository.updateQuantity(Long.parseLong(id),Integer.parseInt(quantity));
         }
+    }
+
+    @Transactional
+    public void changeBasketCurrentById(Long id){
+        basketRepository.updateCurrent(id,false);
+    }
+
+    public Basket getBasketById(Long id){
+        return basketRepository.getBasketById(id);
     }
 }

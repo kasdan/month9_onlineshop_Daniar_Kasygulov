@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -41,36 +42,44 @@ public class BasketController {
         }
 
         model.addAttribute("basket",basket);
-        System.out.println(session.getAttribute("basket"));
-        return "redirect:/clothes/"+id;
+        return "redirect:/";
     }
 
     @GetMapping("/basket")
     public String getBasket( @RequestParam(name = "quantity",required = false) String quantity,
                              @RequestParam(name = "basketId",required = false) String basketId,
-                             Model model, Principal principal){
+                             Model model, Principal principal,HttpSession session,
+                             @SessionAttribute(name = Constants.BASKET,required = false) List<BasketDTO> basketDTOList){
 
         if(basketId!=null & quantity==null) {
             basketService.deleteBasketInstanceById(basketId);
+            var basketDTO = basketDTOList.stream().filter(e->e.getId() == Long.parseLong(basketId)).findFirst();
+            if(basketDTO.isPresent()) {
+                basketDTOList.remove(basketDTO.get());
+                session.setAttribute(Constants.BASKET,basketDTOList);
+            }
         }
         else if(basketId!=null & quantity!=null) {
             basketService.changeBasketQuantity(basketId,quantity);
         }
+        var map = new HashMap<String, Object>();
+        session.getAttributeNames()
+                .asIterator()
+                .forEachRemaining(key -> map.put(key, session.getAttribute(key).toString()));
+        model.addAttribute("sessionAttributes", map);
         var basketList = basketService.getBasketForUser(principal.getName());
         model.addAttribute("baskets",basketList);
         model.addAttribute("user",principal.getName());
         return "/basket";
     }
 
-    @PostMapping("/basket")
-    public String deleteBasketInstance(@RequestBody Long basketId, Model model, Principal principal){
-        //basketService.deleteBasketInstanceById(basketId);
-        System.out.println("model attribute:" + model.getAttribute("basketId"));
-        System.out.println("basket"+basketId);
-        var basketList = basketService.getBasketForUser(principal.getName());
-        model.addAttribute("baskets",basketList);
-        model.addAttribute("user",principal.getName());
-        return "/basket";
-    }
+//    @PostMapping("/basket")
+//    public String deleteBasketInstance(@RequestBody Long basketId, Model model, Principal principal){
+//        //basketService.deleteBasketInstanceById(basketId);
+//        var basketList = basketService.getBasketForUser(principal.getName());
+//        model.addAttribute("baskets",basketList);
+//        model.addAttribute("user",principal.getName());
+//        return "/basket";
+//    }
 
 }

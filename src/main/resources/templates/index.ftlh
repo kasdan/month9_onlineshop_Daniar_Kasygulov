@@ -2,7 +2,8 @@
 
 <@main.renderWith styles=["/css/styles.css"]>
     <#list sessionAttributes as key, value>
-        <div class="border"><span class="key-cell">${key}</span><span class="value-cell">${value}</span></div>
+        <div class="border"><span class="key-cell">${key}</span>
+            <span class="value-cell">${value}</span></div>
     </#list>
     <div class="flex flex-wrap" id="itemList">
             <#list clothes as cloth>

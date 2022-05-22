@@ -15,7 +15,7 @@
         </#if>
         <input type="number" name="clothesId" hidden value="${cloth.id}">
         <input type="number" name="username" hidden value="<#if user??>${user}</#if>">
-        <input type="number" placeholder="please enter quantity" name="quantity">
+        <input type="number" min = 0 placeholder="please enter quantity" name="quantity" value=1>
         <input type="submit" value="Add to basket">
     </form>
 </@main.renderWith>

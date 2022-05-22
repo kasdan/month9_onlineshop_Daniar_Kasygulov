@@ -1,6 +1,10 @@
 <#import "partials/main.ftlh" as main/>
 <@main.renderWith styles=["/css/item.css"]>
     <h1>This is a basket</h1>
+    <#list sessionAttributes as key, value>
+        <div class="border"><span class="key-cell">${key}</span>
+            <span class="value-cell">${value}</span></div>
+    </#list>
     <#list baskets as basket>
         <div class="flex flex-column box flex-v-center">
             <div class="item">
@@ -20,6 +24,11 @@
                 <input type="submit" value="Change">
             </form>
         </div>
-
     </#list>
+    <form action="/order" method="post">
+        <#if _csrf??>
+            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+        </#if>
+        <input type="submit" value="Order">
+    </form>
 </@main.renderWith>
