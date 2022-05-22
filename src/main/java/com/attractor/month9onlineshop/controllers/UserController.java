@@ -1,6 +1,7 @@
 package com.attractor.month9onlineshop.controllers;
 
 
+import com.attractor.month9onlineshop.constant.Constants;
 import com.attractor.month9onlineshop.dto.LoginDTO;
 import com.attractor.month9onlineshop.dto.UserDTO;
 import com.attractor.month9onlineshop.dto.UserRegistrationDTO;
@@ -9,6 +10,7 @@ import com.attractor.month9onlineshop.exceptions.UserAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserEmailAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserNotFoundException;
 import com.attractor.month9onlineshop.services.CapchaService;
+import com.attractor.month9onlineshop.services.RestorePasswordService;
 import com.attractor.month9onlineshop.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,12 +27,27 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
     private final CapchaService capchaService;
+    private final RestorePasswordService restorePasswordService;
 
-//    @GetMapping("/login")
-//    public String loginPage() {
-//        return "login";
-//    }
-@GetMapping("/login")
+    @GetMapping("/restore")
+    public String restorePassword() {
+        return "restore";
+    }
+
+    @PostMapping("/restore")
+    public String restorePasswordPost(@RequestParam(name="email") String email, Model model) {
+        String uniqueLink = restorePasswordService.restorePassword(email);
+        model.addAttribute("uniqueLink",uniqueLink);
+        return "restore";
+    }
+    @GetMapping("/restore/{hash}")
+    public String restorePasswordLink(@PathVariable String hash,Model model) {
+        restorePasswordService.changePassword(hash);
+        return "restore";
+    }
+
+
+    @GetMapping("/login")
 public String loginPage(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
     model.addAttribute("error", error);
     return "login";

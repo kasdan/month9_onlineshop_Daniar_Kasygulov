@@ -22,6 +22,9 @@
 <form action="/register">
 <input type="submit" value="Register" >
 </form>
+    <form action="/restore">
+        <input type="submit" value="Restore password">
+    </form>
 <div class="bottom-box">
     <a href="/">to the main page</a>
 </div>
