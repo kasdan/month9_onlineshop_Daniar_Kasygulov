@@ -12,6 +12,16 @@
             <p> Clothes quantity: ${basket.quantity}</p>
              </div>
     </#list>
+    <span><#if comments??>${comments}</#if></span>
+    <form action="comments" method="post">
+        <#if _csrf??>
+            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+        </#if>
+        <textarea name="comments">
+            Please enter comments
+        </textarea>
+        <input type="submit" value="Submit">
+    </form>
     <form action="order/buy" method="post">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>

@@ -1,21 +1,19 @@
 DROP TABLE IF EXISTS `comments`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `comments` (
-                            `id` bigint NOT NULL AUTO_INCREMENT,
-                            `comment_text` varchar(255) NOT NULL,
-                            `order_id` bigint NOT NULL,
-                            PRIMARY KEY (`id`),
-                            KEY `orders_idx` (`order_id`),
-                            CONSTRAINT `orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `comments`
---
-
-LOCK TABLES `comments` WRITE;
-/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `month9_database`.`comments` (
+                                               `id` INT NOT NULL AUTO_INCREMENT,
+                                               `text` VARCHAR(255) NOT NULL,
+                                               `clothes_id` BIGINT NOT NULL,
+                                               `user_id` BIGINT NOT NULL,
+                                               PRIMARY KEY (`id`),
+                                               INDEX `clothes_idx` (`clothes_id` ASC) VISIBLE,
+                                               INDEX `users_idx` (`user_id` ASC) VISIBLE,
+                                               CONSTRAINT `clothes`
+                                                   FOREIGN KEY (`clothes_id`)
+                                                       REFERENCES `month9_database`.`clothes` (`id`)
+                                                       ON DELETE NO ACTION
+                                                       ON UPDATE NO ACTION,
+                                               CONSTRAINT `users`
+                                                   FOREIGN KEY (`user_id`)
+                                                       REFERENCES `month9_database`.`users` (`id`)
+                                                       ON DELETE NO ACTION
+                                                       ON UPDATE NO ACTION);

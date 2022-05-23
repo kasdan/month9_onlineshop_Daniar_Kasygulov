@@ -16,11 +16,14 @@ public class Comments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "comment_text")
+    @Column(name = "text")
     private String commentText;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "clothes_id")
+    private Clothes clothes;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
