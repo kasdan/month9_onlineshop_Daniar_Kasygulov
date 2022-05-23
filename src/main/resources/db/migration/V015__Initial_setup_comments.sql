@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `month9_database`.`comments` (
-                                               `id` INT NOT NULL AUTO_INCREMENT,
+                                               `id` BIGINT NOT NULL AUTO_INCREMENT,
                                                `text` VARCHAR(255) NOT NULL,
                                                `clothes_id` BIGINT NOT NULL,
                                                `user_id` BIGINT NOT NULL,

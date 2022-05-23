@@ -12,7 +12,7 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 public class CommentsController {
-    private final CommentsService commentsService;
+//    private final CommentsService commentsService;
 
 //    @PostMapping("/comments")
 //    public String addComments(@RequestParam String comments, ){
