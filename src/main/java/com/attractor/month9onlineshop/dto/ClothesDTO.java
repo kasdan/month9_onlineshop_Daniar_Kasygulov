@@ -1,7 +1,10 @@
 package com.attractor.month9onlineshop.dto;
 
 import com.attractor.month9onlineshop.entity.Clothes;
+import com.attractor.month9onlineshop.entity.Comments;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,6 +20,7 @@ public class ClothesDTO {
     private String size;
     private Double price;
     private String photo;
+    private List<Comments> commentsList;
 
     public static ClothesDTO from(Clothes clothes) {
         return builder()
@@ -27,6 +31,7 @@ public class ClothesDTO {
                 .price(clothes.getPrice())
                 .size(clothes.getSize())
                 .quantity(clothes.getQuantity())
+                .commentsList(clothes.getComments())
                 .build();
     }
 }

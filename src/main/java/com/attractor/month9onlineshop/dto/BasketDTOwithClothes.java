@@ -2,7 +2,11 @@ package com.attractor.month9onlineshop.dto;
 
 import com.attractor.month9onlineshop.entity.Basket;
 import com.attractor.month9onlineshop.entity.Clothes;
+import com.attractor.month9onlineshop.entity.Comments;
+import com.attractor.month9onlineshop.services.CommentsService;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter

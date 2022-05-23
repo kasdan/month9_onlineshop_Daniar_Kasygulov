@@ -26,6 +26,7 @@ public class OrderController {
     public String getOrder(Model model, Principal principal, HttpSession session){
         var orderDTOList = orderService.getOrderListForUser(principal.getName());
         model.addAttribute("baskets",orderDTOList.stream().map(OrderDTO::getBasketDTOwithClothes).collect(Collectors.toList()));
+
         model.addAttribute("user",principal.getName());
             return "order";
         }

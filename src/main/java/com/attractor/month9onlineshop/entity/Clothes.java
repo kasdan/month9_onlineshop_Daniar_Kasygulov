@@ -24,6 +24,9 @@ public class Clothes {
     @OneToMany(mappedBy = "clothes", cascade = CascadeType.REFRESH, orphanRemoval = true)
     private List<Photo> photos = new java.util.ArrayList<>();
 
+    @OneToMany(mappedBy = "clothes", cascade = CascadeType.REFRESH, orphanRemoval = true)
+    private List<Comments> comments = new java.util.ArrayList<>();
+
     @Column(name="description")
     private String description;
 
