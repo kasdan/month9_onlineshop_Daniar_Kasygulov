@@ -12,7 +12,7 @@
             <p> Clothes quantity: ${basket.quantity}</p>
              </div>
         <#list basket.clothes.commentsList as comment>
-            <p> ${comment.commentText}</p>
+            <p> ${comment.commentText}: made by ${comment.user.userName}</p>
         </#list>
         <form action="/comments" method="post">
             <#if _csrf??>
