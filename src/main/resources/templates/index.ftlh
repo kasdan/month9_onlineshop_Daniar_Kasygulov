@@ -1,22 +1,43 @@
 <#import "partials/main.ftlh" as main/>
 
-<@main.renderWith styles=["/css/styles.css"] scripts=["/js/search.js"]>
+<@main.renderWith scripts=["/js/search.js"] styles=["/css/index.css"]>
     <input type="text" value="" id="inputName" placeholder="Please enter item name">
     <button type="button" id="name">Search</button>
+    <br>
+    <hr>
 <#--    <#list sessionAttributes as key, value>-->
 <#--        <div class="border"><span class="key-cell">${key}</span>-->
 <#--            <span class="value-cell">${value}</span></div>-->
 <#--    </#list>-->
-    <div class="flex flex-wrap" id="itemList">
-            <#list clothes as cloth>
-                <div class="flex flex-column box flex-v-center">
-                    <a href="/clothes/${cloth.id}"><h3>${cloth.itemName?cap_first}</h3>
-                    <img src="/images/${cloth.photo}.jpg">
-                    <p>Description: ${cloth.description}</p>
-                    <p>Price: ${cloth.price}</p>
+
+    <#import "partials/cardPlacement.ftlh" as c/>
+    <@c.card>
+        <#list clothes as cloth>
+<div class="col-sm-3">
+
+                <div class="card" >
+                    <a href="/clothes/${cloth.id}" style="text-decoration: none">
+                    <img src="/images/${cloth.photo}.jpg" class="card-img-top">
                     </a>
+                    <div class="card-body">
+                        <div class="card-title">${cloth.itemName?cap_first} </div>
+                        <div class="card-text">Price: ${cloth.price}</div>
+                        <form action="/clothes/${cloth.id}" method="post">
+                            <#if _csrf??>
+                                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
+                            </#if>
+                            <input type="number" name="clothesId" hidden value="${cloth.id}">
+                            <input type="number" name="username" hidden value="<#if user??>${user}</#if>">
+                            <input type="number" min = 0 placeholder="please enter quantity" name="quantity" value=1>
+                            <input type="submit" value="Add to basket">
+                        </form>
+                    </div>
                 </div>
-            </#list>
-    </div>
-<#include "partials/pagination.ftlh">
+
+</div>
+        </#list>
+    </@c.card>
+
+
+    <#include "partials/pagination.ftlh">
 </@main.renderWith>
