@@ -27,15 +27,36 @@
     </head>
     <body>
     <div class="container">
-    <nav class="navbar navbar-light bg-light">
-        <a href="/"><h1><@spring.message "title" /></h1></a>
-        <a href="/advancedSearch"><@spring.message "nav.menu.advancedSearch"/></a>
-        <div id="log" <#if user??>style="display:none"<#else>""</#if>><a href="/login"><@spring.message "nav.menu.login"/></a></div>
-        <div id="logout" <#if user??>""<#else> style="display:none"</#if>><a href="/logout"><@spring.message "nav.menu.logout"/></a></div>
-        <div id="register" <#if user??>style="display:none"<#else>""</#if>><a href="/register"><@spring.message "nav.menu.register"/></a></div>
-        <div id="basket"><a href="/basket"> <@spring.message "nav.menu.basket"/> </a></div>
-        <div id="profile"><#if user??><@spring.message "nav.menu.welcome"/>: <a href="/profile">${user}</a> </#if> </div>
-    </nav>
+        <nav class="navbar navbar-light bg-light" >
+            <a href="/"><h1><@spring.message "title"/></h1></a>
+            <a href="/advancedSearch"><@spring.message "nav.menu.advancedSearch"/></a>
+            <#if user??>
+                <div id="login" style="display: none"><a href="/login"> <@spring.message "nav.menu.login" /></a></div>
+            <#else>
+                    <div id="login" ><a href="/login"> <@spring.message "nav.menu.login" /></a></div>
+            </#if>
+
+            <#if user??>
+                <div id="register"><a href="/register"><@spring.message "nav.menu.register"/></a></div>
+            <#else>
+                <div id="register" style="display: none"><a href="/register"><@spring.message "nav.menu.register"/></a></div>
+            </#if>
+            <div id="basket"><a href="/basket"> <@spring.message "nav.menu.basket"/> </a></div>
+            <div id="profile"><#if user??><@spring.message "nav.menu.welcome"/> <a href="/profile">${user}</a> </#if>
+            </div>
+            <form action="" method="get">
+                <label for="lang_select"><@spring.message "label.language" /></label>
+                <select name="lang" id="lang_select">
+                    <option value="">Default</option>
+                    <option value="" disabled>-------------</option>
+                    <option value="en-US">American English</option>
+                    <option value="ru-RU">Русский</option>
+                </select>
+                <button type="submit">
+                    <@spring.message "button.language-change.text" />
+                </button>
+            </form>
+        </nav>
 
         <#--
          элемент nested указывает что в этом место

@@ -21,17 +21,21 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/images/**")
                 .addResourceLocations(String.format("file:%s/", fileStoreConfiguration.getPath()));
     }
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry){
-//        registry.addInterceptor(localeChangeInterceptor());
-//    }
-//    private LocaleChangeInterceptor localeChangeInterceptor(){
-//        var loc = new LocaleChangeInterceptor();
-//        loc.setParamName("lang");
-//        return loc;
-//    }
-//    @Bean
-//    public LocaleResolver localeResolver() {
-//        return new SessionLocaleResolver();
-//    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        return new SessionLocaleResolver();
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
 }
