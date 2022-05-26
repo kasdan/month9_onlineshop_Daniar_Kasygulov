@@ -10,7 +10,7 @@
     <div class="flex flex-wrap" id="itemList">
             <#list clothes as cloth>
                 <div class="flex flex-column box flex-v-center">
-                    <a href="/clothes/${cloth.id}"><h3>${cloth.itemName}</h3>
+                    <a href="/clothes/${cloth.id}"><h3>${cloth.itemName?cap_first}</h3>
                     <img src="/images/${cloth.photo}.jpg">
                     <p>Description: ${cloth.description}</p>
                     <p>Price: ${cloth.price}</p>

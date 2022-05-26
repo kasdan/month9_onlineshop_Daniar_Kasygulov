@@ -1,5 +1,6 @@
 <#import "partials/main.ftlh" as main/>
 <@main.renderWith>
+    <h2>Please enter registration details</h2>
 <form action="/register" method="post">
     <#if _csrf??>
         <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>

@@ -30,8 +30,9 @@
     <nav class="navbar navbar-light bg-light">
         <a href="/"><h1>Kids' shop</h1></a>
         <a href="/advancedSearch">Advanced search</a>
-        <div id="" <#if user??> style="display:none" <#else> "" </#if> ><a href="/login">Login</a></div>
-        <div id="logout"><a href="/logout">Logout</a></div>
+        <div id="log" <#if user??>style="display:none"<#else>""</#if>><a href="/login">Login</a></div>
+        <div id="logout" <#if user??>""<#else> style="display:none"</#if>><a href="/logout">Logout</a></div>
+        <div id="register" <#if user??>style="display:none"<#else>""</#if>><a href="/register">Register</a></div>
         <div id="basket"><a href="/basket"> Basket </a></div>
         <div id="profile"><#if user??>Welcome: <a href="/profile">${user}</a> </#if> </div>
     </nav>
