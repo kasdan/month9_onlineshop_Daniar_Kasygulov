@@ -1,18 +1,12 @@
 package com.attractor.month9onlineshop.frontend;
 
-import com.attractor.month9onlineshop.dto.ClothesDTO;
-import com.attractor.month9onlineshop.dto.MaxMinModel;
 import com.attractor.month9onlineshop.services.ClothesService;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -30,17 +24,14 @@ public class FrontendController {
         if (list.hasNext()) {
             model.addAttribute("nextPageLink", constructPageUri(uri, list.nextPageable().getPageNumber(), list.nextPageable().getPageSize()));
         }
-
         if (list.hasPrevious()) {
             model.addAttribute("prevPageLink", constructPageUri(uri, list.previousPageable().getPageNumber(), list.previousPageable().getPageSize()));
         }
-
         model.addAttribute("hasNext", list.hasNext());
         model.addAttribute("hasPrev", list.hasPrevious());
         model.addAttribute("clothes", list.getContent());
         model.addAttribute("defaultPageSize", pageSize);
     }
-
     private static String constructPageUri(String uri, int page, int size) {
         return String.format("%s?page=%s&size=%s", uri, page, size);
     }
@@ -75,11 +66,9 @@ public class FrontendController {
 
     @GetMapping("/advancedSearch")
     public String advancedSearch(Model model, Pageable pageable, HttpServletRequest uriBuilder) {
-
         var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble("400"), Double.parseDouble("500"), pageable);
         var uri = uriBuilder.getRequestURI();
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
-
         return "advancedSearch";
     }
 

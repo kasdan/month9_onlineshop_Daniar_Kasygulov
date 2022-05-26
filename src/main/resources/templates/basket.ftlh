@@ -1,10 +1,10 @@
 <#import "partials/main.ftlh" as main/>
 <@main.renderWith styles=["/css/item.css"]>
     <h1>This is a basket</h1>
-    <#list sessionAttributes as key, value>
-        <div class="border"><span class="key-cell">${key}</span>
-            <span class="value-cell">${value}</span></div>
-    </#list>
+<#--    <#list sessionAttributes as key, value>-->
+<#--        <div class="border"><span class="key-cell">${key}</span>-->
+<#--            <span class="value-cell">${value}</span></div>-->
+<#--    </#list>-->
     <#list baskets as basket>
         <div class="flex flex-column box flex-v-center">
             <div class="item">
