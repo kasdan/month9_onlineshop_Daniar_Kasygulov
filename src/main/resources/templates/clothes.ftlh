@@ -7,9 +7,9 @@
                 <div class="item">
                     <img src="/images/${cloth.photo}.jpg">
                 </div>
-    <p>Description: ${cloth.description}<br>
-        Price: ${cloth.price}<br>
-        Size:${cloth.size}</p>
+    <p><@spring.message "description" />: ${cloth.description}<br>
+        <@spring.message "price" />: ${cloth.price}<br>
+        <@spring.message "size" />:${cloth.size}</p>
     <form action="/clothes/${cloth.id}" method="post">
         <#if _csrf??>
             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>

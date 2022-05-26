@@ -1,6 +1,6 @@
 <#import "/spring.ftl" as spring>
 <#import "partials/main.ftlh" as main/>
-<@main.renderWith styles=["/css/item.css"]>
+<@main.renderWith styles=["/css/item.css","/css/index.css"]>
     <h1><@spring.message "basket.thisIs" /></h1>
 <#--    <#list sessionAttributes as key, value>-->
 <#--        <div class="border"><span class="key-cell">${key}</span>-->

@@ -1,6 +1,6 @@
 <#import "/spring.ftl" as spring>
 <#import "partials/main.ftlh" as main/>
-<@main.renderWith styles=["/css/item.css"]>
+<@main.renderWith styles=["/css/item.css","/css/index.css"]>
     <h1><@spring.message "order.thisIs" /></h1>
     <#list baskets as basket>
         <div class="flex flex-column box flex-v-center">
@@ -13,14 +13,14 @@
             <p> <@spring.message "basket.quantity" />: ${basket.quantity}</p>
              </div>
         <#list basket.clothes.commentsList as comment>
-            <p> ${comment.commentText}: made by ${comment.user.userName}</p>
+            <p> ${comment.commentText}: <@spring.message "order.madeBy" /> ${comment.user.userName}</p>
         </#list>
         <form action="/comments" method="post">
             <#if _csrf??>
                 <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
             </#if>
             <input hidden type="number" name="clothes_id" value="${basket.clothes.id}">
-            <label for="comments">Please enter comments</label>
+            <label for="comments"><@spring.message "order.review" /></label>
             <textarea name="comments">
         </textarea>
             <input type="submit" value="<@spring.message "submit" />">

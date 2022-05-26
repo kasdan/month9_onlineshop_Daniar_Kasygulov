@@ -66,7 +66,6 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
     public String getProfile(Model model, Principal principal){
     var user =
     model.addAttribute("user",userService.getUserByUserNameDTO(principal.getName()));
-    System.out.println(principal.toString());
     return "profile";
     }
     @GetMapping("/register")

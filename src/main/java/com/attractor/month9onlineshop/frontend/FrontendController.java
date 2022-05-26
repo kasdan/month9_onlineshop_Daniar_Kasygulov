@@ -66,7 +66,7 @@ public class FrontendController {
 
     @GetMapping("/advancedSearch")
     public String advancedSearch(Model model, Pageable pageable, HttpServletRequest uriBuilder) {
-        var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble("400"), Double.parseDouble("500"), pageable);
+        var clothes = clothesService.getListOfClothes(pageable);
         var uri = uriBuilder.getRequestURI();
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
         return "advancedSearch";

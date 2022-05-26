@@ -23,7 +23,7 @@
         <#if clothes??>
             <#list clothes as cloth>
                 <div class="flex flex-column box flex-v-center">
-                    <h3>${cloth.itemName}</h3>
+                    <h3>${cloth.itemName?cap_first}</h3>
                     <a href="/clothes/${cloth.id}">
                         <img src="/images/${cloth.photo}.jpg">
                     <p><@spring.message "description" />: ${cloth.description} <br>
