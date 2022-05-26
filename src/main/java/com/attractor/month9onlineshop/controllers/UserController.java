@@ -54,8 +54,12 @@ public String loginPage(@RequestParam(required = false, defaultValue = "false") 
     model.addAttribute("error", error);
     return "login";
 }
-@GetMapping("/logout") String logoutPage(){
-    return "logout";
+@GetMapping("/logout") String logoutPage(Principal principal,Model model){
+    Optional<Principal> principalOptional = Optional.ofNullable(principal);
+    if (principalOptional.isPresent()) {
+        model.addAttribute("user", principal.getName());
+    }
+        return "logout";
 }
 
     @GetMapping("/profile")

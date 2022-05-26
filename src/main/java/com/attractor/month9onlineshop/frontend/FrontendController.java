@@ -57,127 +57,88 @@ public class FrontendController {
                 .asIterator()
                 .forEachRemaining(key -> map.put(key, session.getAttribute(key).toString()));
         model.addAttribute("sessionAttributes", map);
-        if(principalOptional.isPresent()) {
+        if (principalOptional.isPresent()) {
             model.addAttribute("user", principal.getName());
-            model.addAttribute("login","login");
         }
         return "index";
     }
+
     @GetMapping("/clothes/{id:\\d+?}")
-    public String clothesPage(@PathVariable int id,Model model,Principal principal) {
+    public String clothesPage(@PathVariable int id, Model model, Principal principal) {
         model.addAttribute("cloth", clothesService.getClothesById(Long.valueOf(id)));
         Optional<Principal> principalOptional = Optional.ofNullable(principal);
-        if(principalOptional.isPresent()) {
+        if (principalOptional.isPresent()) {
             model.addAttribute("user", principal.getName());
         }
         return "clothes";
     }
 
-
-
-
     @GetMapping("/advancedSearch")
-    public String advancedSearch(Model model,Pageable pageable,HttpServletRequest uriBuilder){
+    public String advancedSearch(Model model, Pageable pageable, HttpServletRequest uriBuilder) {
 
-            var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble("400"), Double.parseDouble("500"), pageable);
-            var uri = uriBuilder.getRequestURI();
-            constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
+        var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble("400"), Double.parseDouble("500"), pageable);
+        var uri = uriBuilder.getRequestURI();
+        constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
 
         return "advancedSearch";
     }
 
     @GetMapping("/name/{name}")
-    public String getSearchedClothesByName(@PathVariable String name, Model model, Pageable pageable, HttpServletRequest uriBuilder){
-        var clothes = clothesService.getListOfClothesByName(pageable,name);
+    public String getSearchedClothesByName(@PathVariable String name, Model model, Pageable pageable, HttpServletRequest uriBuilder) {
+        var clothes = clothesService.getListOfClothesByName(pageable, name);
         var uri = uriBuilder.getRequestURI();
-        if(clothes.isEmpty()){
-            model.addAttribute("noInfo","Cannot find any clothes");
+        if (clothes.isEmpty()) {
+            model.addAttribute("noInfo", "Cannot find any clothes");
         }
-        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
-        return "advancedSearch";
+        constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
+        return "index";
     }
-    @GetMapping("/description/{description}")
-    public String getSearchedClothesByDescription(@PathVariable String description, Model model, Pageable pageable, HttpServletRequest uriBuilder){
-        var clothes = clothesService.getListOfClothesByDescription(pageable,description);
+
+    @GetMapping("/advancedSearch/name/{name}")
+    public String getAdvancedSearchedClothesByName(@PathVariable String name, Model model, Pageable pageable, HttpServletRequest uriBuilder) {
+        var clothes = clothesService.getListOfClothesByName(pageable, name);
         var uri = uriBuilder.getRequestURI();
-        if(clothes.isEmpty()){
-            model.addAttribute("noInfo","Cannot find any clothes");
+        if (clothes.isEmpty()) {
+            model.addAttribute("noInfo", "Cannot find any clothes");
         }
-        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
+        constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
         return "advancedSearch";
     }
 
-    @GetMapping("/size/{size}")
-    public String getSearchedClothesBySize(@PathVariable String size, Model model, Pageable pageable, HttpServletRequest uriBuilder){
-        var clothes = clothesService.getListOfClothesBySize(pageable,size);
+
+    @GetMapping("/advancedSearch/description/{description}")
+    public String getSearchedClothesByDescription(@PathVariable String description, Model model, Pageable pageable, HttpServletRequest uriBuilder) {
+        var clothes = clothesService.getListOfClothesByDescription(pageable, description);
         var uri = uriBuilder.getRequestURI();
-        if(clothes.isEmpty()){
-            model.addAttribute("noInfo","Cannot find any clothes");
+        if (clothes.isEmpty()) {
+            model.addAttribute("noInfo", "Cannot find any clothes");
         }
-        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
+        constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
         return "advancedSearch";
     }
-    @GetMapping("/price/{data}")
-    public String getSearchedClothesByPriceRange(@PathVariable String data, Model model, Pageable pageable, HttpServletRequest uriBuilder){
-       var min = data.split("and")[0].replace("p","");
+
+    @GetMapping("/advancedSearch/size/{size}")
+    public String getSearchedClothesBySize(@PathVariable String size, Model model, Pageable pageable, HttpServletRequest uriBuilder) {
+        var clothes = clothesService.getListOfClothesBySize(pageable, size);
+        var uri = uriBuilder.getRequestURI();
+        if (clothes.isEmpty()) {
+            model.addAttribute("noInfo", "Cannot find any clothes");
+        }
+        constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
+        return "advancedSearch";
+    }
+
+    @GetMapping("/advancedSearch/price/{data}")
+    public String getSearchedClothesByPriceRange(@PathVariable String data, Model model, Pageable pageable, HttpServletRequest uriBuilder) {
+        var min = data.split("and")[0].replace("p", "");
         var max = data.split("and")[1];
-        var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble(min),Double.parseDouble(max),pageable);
+        var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble(min), Double.parseDouble(max), pageable);
         var uri = uriBuilder.getRequestURI();
-        if(clothes.isEmpty()){
-            model.addAttribute("noInfo","Cannot find any clothes");
+        if (clothes.isEmpty()) {
+            model.addAttribute("noInfo", "Cannot find any clothes");
         }
-        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
+        constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
         return "advancedSearch";
     }
-//    @PostMapping("/advancedSearch")
-//    public String getSearchedClothesByPriceRange(@RequestBody MaxMinModel data,Model model, Pageable pageable, HttpServletRequest uriBuilder){
-//         min = data.getMin();
-//         max = data.getMax();
-//        var uri = uriBuilder.getRequestURI();
-//        var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble(min),Double.parseDouble(max),pageable);
-//        if(clothes.isEmpty()){
-//            model.addAttribute("noInfo","Cannot find any clothes");
-//        }
-//        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
-//        return "advancedSearch";
-//    }
-
-//    @GetMapping("/advancedSearch/price")
-//    public String getPrice(String min,String max ){
-//        return "advancedSearch";
-//    }
-//    @GetMapping("/advancedSearch/price")
-//    public String getPrice(Model model, Pageable pageable, HttpServletRequest uriBuilder){
-//        var uri = uriBuilder.getRequestURI();
-//        var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble(getMin()),Double.parseDouble(getMax()),pageable);
-//        if(clothes.isEmpty()){
-//            model.addAttribute("noInfo","Cannot find any clothes");
-//        }
-//        constructPageable(clothes,propertiesService.getDefaultPageSize(),model,uri);
-//        return "advancedSearch";
-//    }
-
-
-//        public String getPrice(String min,String max,Model model,Pageable pageable,HttpServletRequest uriBuilder){
-//
-//        }
-//
-//    @GetMapping("/places/{id:\\d+?}")
-//    public String placePage(@PathVariable int id, Model model, Pageable pageable, HttpServletRequest uriBuilder) {
-//        model.addAttribute("place", placeService.getPlace(id));
-//        var uri = uriBuilder.getRequestURI();
-//        var foods = foodService.getFoods(id, pageable);
-//        constructPageable(foods, propertiesService.getDefaultPageSize(), model, uri);
-//
-//        return "place";
-//    }
-//
-//    @ExceptionHandler(ResourceNotFoundException.class)
-//    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-//    private String handleRNF(ResourceNotFoundException ex, Model model) {
-//        model.addAttribute("resource", ex.getResource());
-//        model.addAttribute("id", ex.getId());
-//        return "resource-not-found";
-//    }
 
 }

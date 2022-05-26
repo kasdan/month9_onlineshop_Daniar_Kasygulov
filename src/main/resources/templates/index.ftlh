@@ -1,6 +1,8 @@
 <#import "partials/main.ftlh" as main/>
 
-<@main.renderWith styles=["/css/styles.css"]>
+<@main.renderWith styles=["/css/styles.css"] scripts=["/js/search.js"]>
+    <input type="text" value="" id="inputName" placeholder="Please enter item name">
+    <button type="button" id="name">Search</button>
 <#--    <#list sessionAttributes as key, value>-->
 <#--        <div class="border"><span class="key-cell">${key}</span>-->
 <#--            <span class="value-cell">${value}</span></div>-->
@@ -13,7 +15,6 @@
                     <p>Description: ${cloth.description}</p>
                     <p>Price: ${cloth.price}</p>
                     </a>
-
                 </div>
             </#list>
     </div>

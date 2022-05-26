@@ -2,7 +2,7 @@
  объявляем макро-функцию используя которую мы создадим шаблон страницы
  https://freemarker.apache.org/docs/dgui_misc_userdefdir.html
  -->
-<#macro renderWith title="Kids clothes" scripts=[] styles=[]>
+<#macro renderWith title="Kids' shop" scripts=[] styles=[]>
     <!doctype html>
     <html lang="en">
     <head>
@@ -26,16 +26,16 @@
         </#list>
     </head>
     <body>
+    <div class="container">
     <nav class="navbar navbar-light bg-light">
-        <a href="/"><h1>Clothes for kids</h1></a>
+        <a href="/"><h1>Kids' shop</h1></a>
         <a href="/advancedSearch">Advanced search</a>
-        <div id="<#if login??>${login!''}</#if>"><a href="/login">Login</a></div>
+        <div id="" <#if user??> style="display:none" <#else> "" </#if> ><a href="/login">Login</a></div>
         <div id="logout"><a href="/logout">Logout</a></div>
-        <div id="homepage"><a href="/">Home page</a></div>
         <div id="basket"><a href="/basket"> Basket </a></div>
         <div id="profile"><#if user??>Welcome: <a href="/profile">${user}</a> </#if> </div>
     </nav>
-    <div class="container">
+
         <#--
          элемент nested указывает что в этом место
          будет подставлено некоторое содержимое,
