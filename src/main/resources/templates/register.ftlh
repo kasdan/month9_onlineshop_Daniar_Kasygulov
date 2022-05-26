@@ -1,6 +1,6 @@
 <#import "/spring.ftl" as spring>
 <#import "partials/main.ftlh" as main/>
-<@main.renderWith>
+<@main.renderWith styles=["/css/index.css"]>
     <h2><@spring.message "register.enter.details" /></h2>
 <form action="/register" method="post">
     <#if _csrf??>
@@ -18,10 +18,10 @@
     <input type="password" placeholder="<@spring.message "login.placeholder.password" />" name="password">
     <span style="color: red"><#if errorPassword??> ${errorPassword.defaultMessage!'-- no message --'}</#if></span>
     <br>
-    <#if capcha??> Capcha: ${capcha}</#if>
+    <#if captcha??> Captcha: ${captcha}</#if>
     <br>
-    <input type="text" placeholder="<@spring.message "captcha.placeholder" />" name="capcha">
-    <span style="color: red"><#if errorCapcha??> ${errorCapcha!'-- no message --'}</#if></span>
+    <input type="text" placeholder="<@spring.message "captcha.placeholder" />" name="captcha">
+    <span style="color: red"><#if errorCaptcha??> ${errorCaptcha!'-- no message --'}</#if></span>
     <br>
     <input type="submit" value="<@spring.message "enter" />">
 

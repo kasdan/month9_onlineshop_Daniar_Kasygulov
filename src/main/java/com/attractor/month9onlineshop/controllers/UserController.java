@@ -1,14 +1,11 @@
 package com.attractor.month9onlineshop.controllers;
 
 
-import com.attractor.month9onlineshop.constant.Constants;
-import com.attractor.month9onlineshop.dto.LoginDTO;
-import com.attractor.month9onlineshop.dto.UserDTO;
 import com.attractor.month9onlineshop.dto.UserRegistrationDTO;
 import com.attractor.month9onlineshop.entity.User;
+import com.attractor.month9onlineshop.exceptions.CaptchaDoesNotMatchExeption;
 import com.attractor.month9onlineshop.exceptions.UserAlreadyExistsException;
 import com.attractor.month9onlineshop.exceptions.UserEmailAlreadyExistsException;
-import com.attractor.month9onlineshop.exceptions.UserNotFoundException;
 import com.attractor.month9onlineshop.services.CapchaService;
 import com.attractor.month9onlineshop.services.RestorePasswordService;
 import com.attractor.month9onlineshop.services.UserService;
@@ -17,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -37,69 +33,69 @@ public class UserController {
     }
 
     @PostMapping("/restore")
-    public String restorePasswordPost(@RequestParam(name="email") String email,Model model) {
+    public String restorePasswordPost(@RequestParam(name = "email") String email, Model model) {
         String uniqueLink = restorePasswordService.restorePassword(email);
-        model.addAttribute("uniqueLink",uniqueLink);
+        model.addAttribute("uniqueLink", uniqueLink);
         return "restore";
     }
+
     @GetMapping("/restore/{hash}")
     public String restorePasswordLink(@PathVariable String hash, Model model, HttpServletRequest request) {
-        restorePasswordService.changePassword(hash,request);
+        restorePasswordService.changePassword(hash, request);
         return "redirect:/";
     }
 
 
     @GetMapping("/login")
-public String loginPage(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
-    model.addAttribute("error", error);
-    return "login";
-}
-@GetMapping("/logout") String logoutPage(Principal principal,Model model){
-    Optional<Principal> principalOptional = Optional.ofNullable(principal);
-    if (principalOptional.isPresent()) {
-        model.addAttribute("user", principal.getName());
+    public String loginPage(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
+        model.addAttribute("error", error);
+        return "login";
     }
+
+    @GetMapping("/logout")
+    String logoutPage(Principal principal, Model model) {
+        Optional<Principal> principalOptional = Optional.ofNullable(principal);
+        if (principalOptional.isPresent()) {
+            model.addAttribute("user", principal.getName());
+        }
         return "logout";
-}
+    }
 
     @GetMapping("/profile")
-    public String getProfile(Model model, Principal principal){
-    var user =
-    model.addAttribute("user",userService.getUserByUserNameDTO(principal.getName()));
-    return "profile";
+    public String getProfile(Model model, Principal principal) {
+        var user =
+                model.addAttribute("user", userService.getUserByUserNameDTO(principal.getName()));
+        return "profile";
     }
-    @GetMapping("/register")
-    public String getRegistration(Model model){
 
-    model.addAttribute("capcha",capchaService.getNewCapcha());
-    return "register";
+    @GetMapping("/register")
+    public String getRegistration(Model model) {
+
+        model.addAttribute("captcha", capchaService.getNewCapcha());
+        return "register";
     }
 
     @PostMapping(value = "/register")
-    public String getRegistrationForm(@Valid UserRegistrationDTO userRegistrationDTO, @RequestParam(name="capcha") String capcha,
-                                      BindingResult validationResult, Model model){
-    System.out.println(capcha);
-         if(!capchaService.checkCapcha(capcha) || capcha==null){
-            model.addAttribute("errorCapcha","Please enter correct captcha");
-            model.addAttribute("capcha",capchaService.getNewCapcha());
+    public String getRegistrationForm(@Valid UserRegistrationDTO userRegistrationDTO,
+                                      BindingResult validationResult, Model model) {
+        if (validationResult.hasFieldErrors()) {
+            model.addAttribute("captcha", capchaService.getNewCapcha());
+            model.addAttribute("errorPassword", validationResult.getFieldError("password"));
+            model.addAttribute("errorUsername", validationResult.getFieldError("username"));
+            model.addAttribute("errorFullName", validationResult.getFieldError("fullName"));
+            model.addAttribute("errorEmail", validationResult.getFieldError("email"));
+            model.addAttribute("errorCaptcha", validationResult.getFieldError("captcha"));
             return "register";
-        }
-        else if (validationResult.hasFieldErrors()) {
-//            model.addAttribute("errors",validationResult.getFieldErrors());
-            model.addAttribute("errorPassword",validationResult.getFieldError("password"));
-            model.addAttribute("errorUsername",validationResult.getFieldError("username"));
-            model.addAttribute("errorFullName",validationResult.getFieldError("fullName"));
-            model.addAttribute("errorEmail",validationResult.getFieldError("email"));
-            return "register";
-        }
-        else {
+        } else {
             Optional<User> optionalUser = Optional.ofNullable(userService.getUserByUserName(userRegistrationDTO.getUsername()));
             Optional<User> optionalUserByEmail = userService.findUserByEmail(userRegistrationDTO.getEmail());
-            if(optionalUser.isPresent()){
+            if (optionalUser.isPresent()) {
                 throw new UserAlreadyExistsException();
-            }
-            else if (optionalUserByEmail.isPresent()){
+            } else if (optionalUserByEmail.isPresent()) {
                 throw new UserEmailAlreadyExistsException();
+            }
+            else if(!capchaService.checkCapcha(userRegistrationDTO.getCaptcha())){
+                throw new CaptchaDoesNotMatchExeption();
             }
             model.addAttribute("user", userService.addUser(userRegistrationDTO));
             return "login";

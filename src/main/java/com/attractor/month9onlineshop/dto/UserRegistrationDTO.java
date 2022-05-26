@@ -29,4 +29,10 @@ public class UserRegistrationDTO {
     @NotEmpty(message = "must not be empty")
     @NotNull
     private String fullName;
+
+    @NotEmpty(message = "must not be empty")
+    @NotNull
+    private String captcha;
+
+
 }
