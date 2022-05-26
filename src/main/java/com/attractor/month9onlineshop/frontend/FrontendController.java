@@ -2,6 +2,8 @@ package com.attractor.month9onlineshop.frontend;
 
 import com.attractor.month9onlineshop.services.ClothesService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import java.util.Optional;
 public class FrontendController {
     private final ClothesService clothesService;
     private final PropertiesService propertiesService;
+    private final MessageSource messageSource;
 
     private static <T> void constructPageable(Page<T> list, int pageSize, Model model, String uri) {
         if (list.hasNext()) {
@@ -77,7 +80,7 @@ public class FrontendController {
         var clothes = clothesService.getListOfClothesByName(pageable, name);
         var uri = uriBuilder.getRequestURI();
         if (clothes.isEmpty()) {
-            model.addAttribute("noInfo", "Cannot find any clothes");
+            model.addAttribute("noInfo", localizeErrorMessage("NoInfo"));
         }
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
         return "index";
@@ -88,7 +91,7 @@ public class FrontendController {
         var clothes = clothesService.getListOfClothesByName(pageable, name);
         var uri = uriBuilder.getRequestURI();
         if (clothes.isEmpty()) {
-            model.addAttribute("noInfo", "Cannot find any clothes");
+            model.addAttribute("noInfo", localizeErrorMessage("NoInfo"));
         }
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
         return "advancedSearch";
@@ -100,7 +103,7 @@ public class FrontendController {
         var clothes = clothesService.getListOfClothesByDescription(pageable, description);
         var uri = uriBuilder.getRequestURI();
         if (clothes.isEmpty()) {
-            model.addAttribute("noInfo", "Cannot find any clothes");
+            model.addAttribute("noInfo", localizeErrorMessage("NoInfo"));
         }
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
         return "advancedSearch";
@@ -111,7 +114,7 @@ public class FrontendController {
         var clothes = clothesService.getListOfClothesBySize(pageable, size);
         var uri = uriBuilder.getRequestURI();
         if (clothes.isEmpty()) {
-            model.addAttribute("noInfo", "Cannot find any clothes");
+            model.addAttribute("noInfo", localizeErrorMessage("NoInfo"));
         }
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
         return "advancedSearch";
@@ -124,10 +127,14 @@ public class FrontendController {
         var clothes = clothesService.getListOfClothesByPriceBetween(Double.parseDouble(min), Double.parseDouble(max), pageable);
         var uri = uriBuilder.getRequestURI();
         if (clothes.isEmpty()) {
-            model.addAttribute("noInfo", "Cannot find any clothes");
+            model.addAttribute("noInfo", localizeErrorMessage("NoInfo"));
         }
         constructPageable(clothes, propertiesService.getDefaultPageSize(), model, uri);
         return "advancedSearch";
+    }
+       private String localizeErrorMessage(String errorCode) {
+        var locale = LocaleContextHolder.getLocale();
+        return messageSource.getMessage(errorCode, null, locale);
     }
 
 }
