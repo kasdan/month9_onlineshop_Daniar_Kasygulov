@@ -1,3 +1,4 @@
+<#import "/spring.ftl" as spring>
 <#import "partials/main.ftlh" as main/>
 
 <@main.renderWith styles=["/css/item.css","/css/index.css"]>
@@ -15,7 +16,7 @@
         </#if>
         <input type="number" name="clothesId" hidden value="${cloth.id}">
         <input type="number" name="username" hidden value="<#if user??>${user}</#if>">
-        <input type="number" min = 0 placeholder="please enter quantity" name="quantity" value=1>
-        <input type="submit" value="Add to basket">
+        <input type="number" min = 0 placeholder="<@spring.message "item.basketAdd" />" name="quantity" value=1>
+        <input type="submit" value="<@spring.message "item.basketAdd" />">
     </form>
 </@main.renderWith>

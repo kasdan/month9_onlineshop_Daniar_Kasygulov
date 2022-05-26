@@ -2,16 +2,17 @@
  объявляем макро-функцию используя которую мы создадим шаблон страницы
  https://freemarker.apache.org/docs/dgui_misc_userdefdir.html
  -->
-<#macro renderWith title="Kids' shop" scripts=[] styles=[]>
+
+<#macro renderWith scripts=[] styles=[]>
     <#import "/spring.ftl" as spring>
     <!doctype html>
-    <html lang="en">
+    <html lang="${.locale}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>${title}</title>
+        <title><@spring.message "title" /></title>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript">
         </script>
@@ -27,13 +28,13 @@
     <body>
     <div class="container">
     <nav class="navbar navbar-light bg-light">
-        <a href="/"><h1>Kids' shop</h1></a>
-        <a href="/advancedSearch">Advanced search</a>
-        <div id="log" <#if user??>style="display:none"<#else>""</#if>><a href="/login">Login</a></div>
-        <div id="logout" <#if user??>""<#else> style="display:none"</#if>><a href="/logout">Logout</a></div>
-        <div id="register" <#if user??>style="display:none"<#else>""</#if>><a href="/register">Register</a></div>
-        <div id="basket"><a href="/basket"> Basket </a></div>
-        <div id="profile"><#if user??>Welcome: <a href="/profile">${user}</a> </#if> </div>
+        <a href="/"><h1><@spring.message "title" /></h1></a>
+        <a href="/advancedSearch"><@spring.message "nav.menu.advancedSearch"/></a>
+        <div id="log" <#if user??>style="display:none"<#else>""</#if>><a href="/login"><@spring.message "nav.menu.login"/></a></div>
+        <div id="logout" <#if user??>""<#else> style="display:none"</#if>><a href="/logout"><@spring.message "nav.menu.logout"/></a></div>
+        <div id="register" <#if user??>style="display:none"<#else>""</#if>><a href="/register"><@spring.message "nav.menu.register"/></a></div>
+        <div id="basket"><a href="/basket"> <@spring.message "nav.menu.basket"/> </a></div>
+        <div id="profile"><#if user??><@spring.message "nav.menu.welcome"/>: <a href="/profile">${user}</a> </#if> </div>
     </nav>
 
         <#--
@@ -51,5 +52,4 @@
 
     </body>
     </html>
-
 </#macro>

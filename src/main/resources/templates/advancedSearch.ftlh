@@ -1,22 +1,23 @@
+<#import "/spring.ftl" as spring>
 <#import "partials/main.ftlh" as main/>
 
 <@main.renderWith scripts=["/js/advancedSearch.js"] styles=["/css/styles.css"]>
 
-    <h1>Advanced search</h1>
+    <h1><@spring.message "nav.menu.advancedSearch" /></h1>
 
-        <h4>Please enter the price range</h4>
+        <h4<@spring.message "advanced.price.range" /></h4>
         <input type="number" id="min" value=0> - <input type="number" id="max"  value=0>
-        <button type="button" id="price">Submit</button>
+        <button type="button" id="price"><@spring.message "submit" /></button>
 
-    <h4>Please enter the name of item.</h4>
-    <input type="text" value="" id="inputName" placeholder="Please enter item name">
-    <button type="button" id="name">Submit</button>
-    <h4>Please enter the description of item.</h4>
-    <input type="text" value="" id="inputDescription" placeholder="Please enter item description">
-    <button type="button" id="description">Submit</button>
-    <h4>Please enter the size</h4>
-    <input type="text" value="" id="inputSize" placeholder="Please enter item size">
-    <button type="button" id="size">Submit</button>
+    <h4><@spring.message "advanced.name" /></h4>
+    <input type="text" value="" id="inputName" placeholder="<@spring.message "advanced.name" />">
+    <button type="button" id="name"><@spring.message "submit" /></button>
+    <h4><@spring.message "advanced.description" /></h4>
+    <input type="text" value="" id="inputDescription" placeholder="<@spring.message "advanced.description" />">
+    <button type="button" id="description"><@spring.message "submit" /></button>
+    <h4><@spring.message "advanced.size" /></h4>
+    <input type="text" value="" id="inputSize" placeholder="<@spring.message "advanced.size" />">
+    <button type="button" id="size"><@spring.message "submit" /></button>
     <span style="color: red"><#if noInfo??>${noInfo!''}</#if></span>
     <div class="flex flex-wrap" id="itemList">
         <#if clothes??>
@@ -25,9 +26,9 @@
                     <h3>${cloth.itemName}</h3>
                     <a href="/clothes/${cloth.id}">
                         <img src="/images/${cloth.photo}.jpg">
-                    <p>Description: ${cloth.description} <br>
-                        Size: ${cloth.size} <br>
-                        Price: ${cloth.price}
+                    <p><@spring.message "description" />: ${cloth.description} <br>
+                        <@spring.message "size" />: ${cloth.size} <br>
+                        <@spring.message "price" />: ${cloth.price}
                     </p>
                         </a>
                 </div>
