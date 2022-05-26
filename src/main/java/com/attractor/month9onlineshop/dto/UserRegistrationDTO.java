@@ -13,24 +13,24 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class UserRegistrationDTO {
 
-    @NotEmpty(message = "must not be empty")
+    @NotEmpty
     @NotNull
     private String username;
 
-    @NotEmpty(message = "must not be empty")
+    @NotEmpty
     @NotBlank
-    @Email(message = "must be email")
+    @Email
     private String email;
 
-    @NotEmpty(message = "must not be empty")
+    @NotEmpty
     @NotNull
     private String password;
 
-    @NotEmpty(message = "must not be empty")
+    @NotEmpty
     @NotNull
     private String fullName;
 
-    @NotEmpty(message = "must not be empty")
+    @NotEmpty
     @NotNull
     private String captcha;
 

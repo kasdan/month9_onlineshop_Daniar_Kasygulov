@@ -10,6 +10,8 @@ import com.attractor.month9onlineshop.services.CapchaService;
 import com.attractor.month9onlineshop.services.RestorePasswordService;
 import com.attractor.month9onlineshop.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -93,8 +95,7 @@ public class UserController {
                 throw new UserAlreadyExistsException();
             } else if (optionalUserByEmail.isPresent()) {
                 throw new UserEmailAlreadyExistsException();
-            }
-            else if(!capchaService.checkCapcha(userRegistrationDTO.getCaptcha())){
+            } else if (!capchaService.checkCapcha(userRegistrationDTO.getCaptcha())) {
                 throw new CaptchaDoesNotMatchExeption();
             }
             model.addAttribute("user", userService.addUser(userRegistrationDTO));
@@ -102,4 +103,5 @@ public class UserController {
         }
 
     }
+
 }

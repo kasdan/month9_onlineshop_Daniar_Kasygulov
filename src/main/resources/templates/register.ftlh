@@ -15,13 +15,13 @@
     <input type="email" placeholder="<@spring.message "register.placeholder.email" />" name="email">
     <span style="color: red"><#if errorEmail??> ${errorEmail.defaultMessage!'-- no message --'}</#if></span>
     <br>
-    <input type="password" placeholder="<@spring.message "login.placeholder.password" />" name="password">
+    <input type="password" placeholder="<@spring.message "login.placeholder.password" />" name="password" min="3">
     <span style="color: red"><#if errorPassword??> ${errorPassword.defaultMessage!'-- no message --'}</#if></span>
     <br>
     <#if captcha??> Captcha: ${captcha}</#if>
     <br>
     <input type="text" placeholder="<@spring.message "captcha.placeholder" />" name="captcha">
-    <span style="color: red"><#if errorCaptcha??> ${errorCaptcha!'-- no message --'}</#if></span>
+    <span style="color: red"><#if errorCaptcha??> ${errorCaptcha.defaultMessage!'-- no message --'}</#if></span>
     <br>
     <input type="submit" value="<@spring.message "enter" />">
 
