@@ -52,7 +52,6 @@ public class RestorePasswordService {
         UsernamePasswordAuthenticationToken authReq
                 = new UsernamePasswordAuthenticationToken(user.getUserName(),hash);
         Authentication auth = authManager.authenticate(authReq);
-        System.out.println(auth.getPrincipal());
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.setAuthentication(auth);
         HttpSession session = req.getSession(true);

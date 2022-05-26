@@ -3,14 +3,13 @@ package com.attractor.month9onlineshop.services;
 import com.attractor.month9onlineshop.dto.BasketDTO;
 import com.attractor.month9onlineshop.dto.BasketDTOwithClothes;
 import com.attractor.month9onlineshop.entity.Basket;
-import com.attractor.month9onlineshop.entity.Clothes;
 import com.attractor.month9onlineshop.entity.User;
 import com.attractor.month9onlineshop.repository.BasketRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +19,7 @@ public class BasketService {
     private final BasketRepository basketRepository;
     private final UserService userService;
     private final ClothesService clothesService;
+    private final AnonymousLoginService anonymousLoginService;
 
     public BasketDTO addToBasket(Long clothesId, String username, Integer quantity){
         var user = userService.getUserByUserName(username);
@@ -62,5 +62,11 @@ public class BasketService {
 
     public Basket getBasketById(Long id){
         return basketRepository.getBasketById(id);
+    }
+
+    public BasketDTO addToBasketOfAnonymousUser(String clothesId, String sessionId, int quantity, HttpServletRequest req) {
+       User user = userService.createAnonymousUser(sessionId);
+       anonymousLoginService.anonymousLogin(user,req);
+       return addToBasket(Long.parseLong(clothesId),user.getUserName(),quantity);
     }
 }

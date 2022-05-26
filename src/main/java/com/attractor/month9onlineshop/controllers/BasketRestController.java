@@ -4,7 +4,6 @@ import com.attractor.month9onlineshop.dto.BasketDTO;
 import com.attractor.month9onlineshop.services.BasketService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

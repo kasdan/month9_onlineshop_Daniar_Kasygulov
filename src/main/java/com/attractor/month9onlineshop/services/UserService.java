@@ -65,4 +65,15 @@ public class UserService {
         userRepository.updatePassword(user.getId(), user.getPassword());
     }
 
+    public User createAnonymousUser(String sessionId) {
+        var userRegDto = UserRegistrationDTO.builder()
+                .username(sessionId)
+                .fullName(sessionId)
+                .password(encoder.encode(sessionId))
+                .email(sessionId+"@mail.com")
+                .build();
+        var userDTO = addUser(userRegDto);
+        System.out.println(getUserByUserName(userRegDto.getUsername()));
+        return getUserByUserName(userDTO.getUsername());
+    }
 }

@@ -3,22 +3,20 @@ package com.attractor.month9onlineshop.controllers;
 import com.attractor.month9onlineshop.constant.Constants;
 import com.attractor.month9onlineshop.dto.BasketAddDTO;
 import com.attractor.month9onlineshop.dto.BasketDTO;
-import com.attractor.month9onlineshop.dto.BasketDTOwithClothes;
-import com.attractor.month9onlineshop.entity.User;
 import com.attractor.month9onlineshop.services.BasketService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,8 +24,16 @@ public class BasketController {
     private final BasketService basketService;
 
     @PostMapping("/clothes/{id:\\d+?}")
-    public String addToBasket(@PathVariable int id, @Valid BasketAddDTO basketAddDTO,Principal principal,Model model,HttpSession session){
-        var basket = basketService.addToBasket(Long.parseLong(basketAddDTO.getClothesId()),principal.getName(), Integer.parseInt(basketAddDTO.getQuantity()));
+    public String addToBasket(@PathVariable int id, @Valid BasketAddDTO basketAddDTO, Principal principal, Model model
+            ,HttpSession session, HttpServletRequest req){
+         BasketDTO basket;
+         Optional<Principal> principalOptional = Optional.ofNullable(principal);
+        if(principalOptional.isPresent()) {
+            basket = basketService.addToBasket(Long.parseLong(basketAddDTO.getClothesId()), principal.getName(), Integer.parseInt(basketAddDTO.getQuantity()));
+        }else{
+            var sessionId = session.getId();
+            basket = basketService.addToBasketOfAnonymousUser(basketAddDTO.getClothesId(),sessionId, Integer.parseInt(basketAddDTO.getQuantity()),req);
+        }
         if (session != null) {
             var attr = session.getAttribute(Constants.BASKET);
             if (attr == null) {
@@ -36,11 +42,10 @@ public class BasketController {
             try {
                 var list = (List<BasketDTO>) session.getAttribute(Constants.BASKET);
                 list.add(basket);
-            } catch (ClassCastException ignored) {
-
+            }
+            catch (ClassCastException ignored) {
             }
         }
-
         model.addAttribute("basket",basket);
         return "redirect:/";
     }
@@ -72,7 +77,6 @@ public class BasketController {
         model.addAttribute("user",principal.getName());
         return "/basket";
     }
-
 //    @PostMapping("/basket")
 //    public String deleteBasketInstance(@RequestBody Long basketId, Model model, Principal principal){
 //        //basketService.deleteBasketInstanceById(basketId);
@@ -81,5 +85,4 @@ public class BasketController {
 //        model.addAttribute("user",principal.getName());
 //        return "/basket";
 //    }
-
 }
