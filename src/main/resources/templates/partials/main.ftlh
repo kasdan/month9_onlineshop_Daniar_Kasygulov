@@ -35,11 +35,16 @@
             <#else>
                     <div id="login" ><a href="/login"> <@spring.message "nav.menu.login" /></a></div>
             </#if>
+            <#if user??>
+                <div id="logout" ><a href="/logout"> <@spring.message "nav.menu.logout" /></a></div>
+            <#else>
+                <div id="logout" ><a href="/logout" style="display: none"> <@spring.message "nav.menu.logout" /></a></div>
+            </#if>
 
             <#if user??>
-                <div id="register"><a href="/register"><@spring.message "nav.menu.register"/></a></div>
+                <div id="register"><a href="/register" style="display: none"><@spring.message "nav.menu.register"/></a></div>
             <#else>
-                <div id="register" style="display: none"><a href="/register"><@spring.message "nav.menu.register"/></a></div>
+                <div id="register" ><a href="/register"><@spring.message "nav.menu.register"/></a></div>
             </#if>
             <div id="basket"><a href="/basket"> <@spring.message "nav.menu.basket"/> </a></div>
             <div id="profile"><#if user??><@spring.message "nav.menu.welcome"/> <a href="/profile">${user}</a> </#if>
@@ -47,7 +52,7 @@
             <form action="" method="get">
                 <label for="lang_select"><@spring.message "label.language" /></label>
                 <select name="lang" id="lang_select">
-                    <option value="">Default</option>
+                    <option value="en">Default</option>
                     <option value="" disabled>-------------</option>
                     <option value="en-US">American English</option>
                     <option value="ru-RU">Русский</option>
