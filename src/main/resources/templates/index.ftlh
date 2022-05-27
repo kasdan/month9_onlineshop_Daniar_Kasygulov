@@ -3,7 +3,7 @@
 
 <@main.renderWith scripts=["/js/search.js"] styles=["/css/index.css"]>
     <input type="text" value="" id="inputName" placeholder="<@spring.message "index.body.search.placeholder"/>">
-    <button type="button" id="name"><@spring.message "index.button.languagechange.text"/></button>
+    <button type="button" id="name"><@spring.message "search"/></button>
     <br>
     <hr>
 <#--    <#list sessionAttributes as key, value>-->
